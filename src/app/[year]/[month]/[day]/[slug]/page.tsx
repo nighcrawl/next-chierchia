@@ -1,7 +1,6 @@
 import { getPostBySlug } from "@/lib/wordpress";
-import { getPostDateParts } from "@/lib/post-urls";
+import { getPostUrl } from "@/lib/post-urls";
 import { notFound } from "next/navigation";
-import type { WordPressPost } from "@/lib/wordpress-types";
 import Link from "next/link";
 
 type PostPageParams = {

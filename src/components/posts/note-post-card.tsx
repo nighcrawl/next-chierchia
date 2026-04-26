@@ -1,8 +1,6 @@
 import { PostMeta } from "./post-meta";
 import type { PostCardSharedProps } from "./post-card";
 import { PostType } from "./post-type";
-import { getPostUrl } from "@/lib/post-urls";
-import Link from "next/link";
 
 export function NotePostCard({ post, theme }: PostCardSharedProps) {
     return (
