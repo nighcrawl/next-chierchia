@@ -151,19 +151,32 @@ Cette approche réduit la duplication logique et rend les composants enfants bea
 À ce stade, le projet permet déjà :
 
 - de consommer les vrais contenus WordPress depuis le site existant,
-- d’enrichir les posts avec catégories et tags,
+- d'enrichir les posts avec catégories et tags,
 - de typer correctement les données côté TypeScript,
 - de rendre les posts différemment selon leur type éditorial,
-- d’appliquer un thème visuel différent par famille de contenu avec Tailwind.
+- d'appliquer un thème visuel différent par famille de contenu avec Tailwind,
+- **d'afficher les pages de détail avec des URLs chronologiques** `/yyyy/mm/dd/slug`,
+- **de naviguer entre les posts via des liens cliquables** sur tous les types de contenu.
 
 Le chantier est donc déjà bien avancé sur la partie structure des données, architecture des composants et logique de rendu.
+
+## URLs chronologiques et pages de détail
+
+Une structure d'URL chronologique a été implémentée pour tous les types de posts :
+- Format : `/yyyy/mm/dd/slug` (ex: `/2026/04/26/one-developer-two-dozen-agents-zero-alignment/`)
+- Route dynamique : `app/[year]/[month]/[day]/[slug]/page.tsx`
+- Utilitaires : `src/lib/post-urls.ts` avec `getPostUrl()` et `getPostDateParts()`
+- Navigation : Tous les composants PostCard incluent désormais des liens vers les pages de détail
+- Validation : Vérification que la date dans l'URL correspond bien à la date du post
+
+Cette approche permet une navigation sémantique et optimisée pour le SEO tout en conservant la cohérence avec les standards WordPress.
 
 ## Étapes logiques suivantes
 
 Les prochaines étapes cohérentes pour continuer le projet sont les suivantes :
 
-1. Ajouter les liens vers les pages de détail des articles et pages de taxonomies.
+1. ✅ **Ajouter les liens vers les pages de détail des articles** - **TERMINÉ**
 2. Gérer les images mises en avant sur les cartes et dans les pages single.
-3. Construire les routes `blog/[slug]`, `tag/[slug]` et `category/[slug]`.
+3. Construire les routes `tag/[slug]` et `category/[slug]` pour les taxonomies.
 4. Ajouter le SEO, les métadonnées Open Graph et éventuellement la pagination.
 5. Préparer ensuite la bascule progressive du front public une fois la parité fonctionnelle atteinte.

@@ -1,5 +1,7 @@
 import type { EnrichedPost } from "@/lib/post-types";
 import { PostTheme } from "@/lib/post-theme";
+import { getPostUrl } from "@/lib/post-urls";
+import Link from "next/link";
 
 type PostMetaProps = {
     post: EnrichedPost,
@@ -20,7 +22,7 @@ function formatDate(dateString: string) {
 export function PostMeta({post, theme}: PostMetaProps) {
     return (
         <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-            <time dateTime={post.date} className={theme.label}>{formatDate(post.date)}</time>
+            <Link href={getPostUrl(post)}><time dateTime={post.date} className={theme.label}>{formatDate(post.date)}</time></Link>
 
             {post.tagObjects.map((tag) => (
                 <span key={`tag-${tag.id}`} className={`rounded-full px-2 py-1 ${theme.tag}`}>#{tag.name}</span>
