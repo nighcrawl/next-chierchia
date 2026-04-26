@@ -1,4 +1,4 @@
-import { getPosts, getTagsByIds, getCategoriesByIds } from "@/lib/wordpress";
+import { getPosts, getTagsByIds, getCategoriesByIds, extractFeaturedMedia } from "@/lib/wordpress";
 import { WordPressPost, WordPressTerm } from "@/lib/wordpress-types";
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
@@ -39,10 +39,13 @@ export default async function PaginatedPage({ params }: PageProps) {
 				getCategoriesByIds(post.categories),
 			]);
 
+			const featuredMediaObject = extractFeaturedMedia(post);
+
 			return {
 				...post,
 				tagObjects,
 				categoryObjects,
+				featuredMediaObject,
 			};
 		}),
 	);
@@ -61,8 +64,8 @@ export default async function PaginatedPage({ params }: PageProps) {
 				</div>
 			</header>
 
-			<ul className="space-y-6">
-				{postsWithTerms.map((post: PostWithTerms) => (
+			<ul className="space-y-12">
+				{postsWithTerms.map((post: EnrichedPost) => (
 					<li key={post.id}>
 						<PostCard post={post} />
 					</li>

@@ -1,6 +1,7 @@
-import type { WordPressPost, WordPressTerm } from "@/lib/wordpress-types";
+import type { WordPressPost, WordPressTerm, WordPressFeaturedMedia } from "@/lib/wordpress-types";
 
 export type EnrichedPost = WordPressPost & {
     tagObjects: WordPressTerm[];
     categoryObjects: WordPressTerm[];
+    featuredMediaObject?: WordPressFeaturedMedia;
 };

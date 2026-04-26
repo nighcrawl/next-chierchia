@@ -1,4 +1,4 @@
-import type { WordPressPage, WordPressPost, WordPressTerm, PaginatedPostsResponse } from "./wordpress-types";
+import type { WordPressPage, WordPressPost, WordPressTerm, PaginatedPostsResponse, WordPressFeaturedMedia } from "./wordpress-types";
 
 const API_BASE = process.env.WORDPRESS_API_BASE;
 
@@ -133,4 +133,10 @@ export async function getTagsByIds(ids: number[]): Promise<WordPressTerm[]> {
 export async function getTagById(id: number): Promise<WordPressTerm | null> {
     const tags = await getTagsByIds([id]);
     return tags[0] ?? null;
+}
+
+export function extractFeaturedMedia(post: WordPressPost): WordPressFeaturedMedia | undefined {
+    // Les médias sont embarqués dans _embedded["wp:featuredmedia"] quand on utilise _embed=true
+    const featuredMedia = post._embedded?.["wp:featuredmedia"]?.[0];
+    return featuredMedia;
 }

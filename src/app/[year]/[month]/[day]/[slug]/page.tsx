@@ -1,7 +1,8 @@
-import { getPostBySlug } from "@/lib/wordpress";
+import { getPostBySlug, extractFeaturedMedia } from "@/lib/wordpress";
 import { getPostUrl } from "@/lib/post-urls";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { FeaturedImage } from "@/components/posts/featured-image";
 
 type PostPageParams = {
   year: string;
@@ -25,6 +26,9 @@ export default async function PostPage({ params }: {
     console.log("Post not found for slug:", slug);
     notFound();
   }
+  
+  // Extraire les médias mis en avant
+  const featuredMediaObject = extractFeaturedMedia(post);
   
   // Validation de la date directement ici pour éviter le problème avec getPostDateParts
   const postDate = new Date(post.date);
@@ -51,6 +55,18 @@ export default async function PostPage({ params }: {
 				Front Next.js connecté à WordPress.
 			</p>
       <article className="mt-10 space-y-6">
+        {/* Image mise en avant */}
+        {featuredMediaObject && (
+          <div className="mb-8">
+            <FeaturedImage 
+              featuredMedia={featuredMediaObject}
+              size="large"
+              className="w-full h-64 md:h-96 rounded-lg shadow-lg"
+              priority={true}
+            />
+          </div>
+        )}
+        
         <header className="mb-8">
           <h1 className="text-4xl font-bold tracking-tight">
             {post.title.rendered}
