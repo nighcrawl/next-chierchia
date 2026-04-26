@@ -1,4 +1,4 @@
-import type { WordPressPage, WordPressPost, WordPressTerm } from "./wordpress-types";
+import type { WordPressPage, WordPressPost, WordPressTerm, PaginatedPostsResponse } from "./wordpress-types";
 
 const API_BASE = process.env.WORDPRESS_API_BASE;
 
@@ -22,7 +22,7 @@ function buildUrl(endpoint: string, params?: QueryParams) {
     return url.toString();
 }
 
-async function wpFetch<T>(endpoint: string, params?: QueryParams): Promise<T> {
+async function wpFetch<T>(endpoint: string, params?: QueryParams): Promise<{ data: T; headers: Headers }> {
     const url = buildUrl(endpoint, params);
 
     const response = await fetch(url, {
@@ -33,18 +33,37 @@ async function wpFetch<T>(endpoint: string, params?: QueryParams): Promise<T> {
         throw new Error(`WordPress API error: ${response.status} on ${url}`);
     }
 
-    return response.json() as Promise<T>;
+    const data = await response.json() as T;
+    
+    return {
+        data,
+        headers: response.headers,
+    };
 }
 
-export async function getPosts(): Promise<WordPressPost[]> {
-    return wpFetch<WordPressPost[]>("posts", {
-        per_page: 10,
+export async function getPosts(page: number = 1, perPage: number = 10): Promise<PaginatedPostsResponse> {
+    const { data: posts, headers } = await wpFetch<WordPressPost[]>("posts", {
+        page,
+        per_page: perPage,
         _embed: true,
     });
+    
+    // Les headers WordPress sont CRUCIAUX pour la pagination :
+    // X-WP-Total: nombre total d'articles dans la base
+    // X-WP-TotalPages: nombre total de pages disponibles
+    // Sans ces headers, on ne pourrait pas construire une pagination correcte
+    const total = parseInt(headers.get('X-WP-Total') || '0');
+    const totalPages = parseInt(headers.get('X-WP-TotalPages') || '0');
+
+    return {
+        posts,
+        total,
+        totalPages,
+    };
 }
 
 export async function getPostBySlug(slug: string): Promise<WordPressPost | null> {
-    const posts = await wpFetch<WordPressPost[]>("posts", {
+    const { data: posts } = await wpFetch<WordPressPost[]>("posts", {
         slug,
         _embed: true,
     });
@@ -53,13 +72,14 @@ export async function getPostBySlug(slug: string): Promise<WordPressPost | null>
 }
 
 export async function getPages(): Promise<WordPressPage[]> {
-    return wpFetch<WordPressPage[]>("pages", {
+    const { data: pages } = await wpFetch<WordPressPage[]>("pages", {
         per_page: 100,
     });
+    return pages;
 }
 
 export async function getPageBySlug(slug: string): Promise<WordPressPage | null> {
-    const pages = await wpFetch<WordPressPage[]>("pages", {
+    const { data: pages } = await wpFetch<WordPressPage[]>("pages", {
         slug,
         _embed: true,
     });
@@ -68,9 +88,10 @@ export async function getPageBySlug(slug: string): Promise<WordPressPage | null>
 }
 
 export async function getCategories(): Promise<WordPressTerm[]> {
-    return wpFetch<WordPressTerm[]>("categories", {
+    const { data: categories } = await wpFetch<WordPressTerm[]>("categories", {
         per_page: 100,
     });
+    return categories;
 }
 
 export async function getCategoriesByIds(ids: number[]): Promise<WordPressTerm[]> {
@@ -78,10 +99,11 @@ export async function getCategoriesByIds(ids: number[]): Promise<WordPressTerm[]
         return [];
     }
 
-    return wpFetch<WordPressTerm[]>("categories", {
+    const { data: categories } = await wpFetch<WordPressTerm[]>("categories", {
         include: ids.join(","),
         per_page: ids.length,
     });
+    return categories;
 }
 
 export async function getCategoryById(id: number): Promise<WordPressTerm | null> {
@@ -90,9 +112,10 @@ export async function getCategoryById(id: number): Promise<WordPressTerm | null>
 }
 
 export async function getTags(): Promise<WordPressTerm[]> {
-    return wpFetch<WordPressTerm[]>("tags", {
+    const { data: tags } = await wpFetch<WordPressTerm[]>("tags", {
         per_page: 100,
     });
+    return tags;
 }
 
 export async function getTagsByIds(ids: number[]): Promise<WordPressTerm[]> {
@@ -100,10 +123,11 @@ export async function getTagsByIds(ids: number[]): Promise<WordPressTerm[]> {
         return [];
     }
 
-    return wpFetch<WordPressTerm[]>("tags", {
+    const { data: tags } = await wpFetch<WordPressTerm[]>("tags", {
         include: ids.join(","),
         per_page: ids.length,
     });
+    return tags;
 }
 
 export async function getTagById(id: number): Promise<WordPressTerm | null> {

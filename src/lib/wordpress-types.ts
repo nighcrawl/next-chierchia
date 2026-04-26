@@ -57,3 +57,9 @@ export type WordPressTerm = {
     description: string;
     count: number;
 };
+
+export type PaginatedPostsResponse = {
+    posts: WordPressPost[];
+    total: number;
+    totalPages: number;
+};

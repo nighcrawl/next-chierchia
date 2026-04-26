@@ -3,14 +3,34 @@ import { WordPressPost, WordPressTerm } from "@/lib/wordpress-types";
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
+import { notFound } from "next/navigation";
 
 type PostWithTerms = WordPressPost & {
 	tagObjects: WordPressTerm[];
 	categoryObjects: WordPressTerm[];
 };
 
-export default async function Home() {
-	const postsResponse = await getPosts();
+interface PageProps {
+	params: Promise<{
+		page: string;
+	}>;
+}
+
+export default async function PaginatedPage({ params }: PageProps) {
+	const { page: pageParam } = await params;
+	const pageNumber = parseInt(pageParam, 10);
+
+	// Valider que le numéro de page est valide
+	if (isNaN(pageNumber) || pageNumber < 1) {
+		notFound();
+	}
+
+	const postsResponse = await getPosts(pageNumber, 10);
+
+	// Si la page demandée n'existe pas
+	if (pageNumber > postsResponse.totalPages) {
+		notFound();
+	}
 
 	const postsWithTerms: EnrichedPost[] = await Promise.all(
 		postsResponse.posts.map(async (post) => {
@@ -36,11 +56,9 @@ export default async function Home() {
 				<p className="mt-4 text-zinc-600">
 					Front Next.js connecté à WordPress.
 				</p>
-				{postsResponse.totalPages > 1 && (
-					<div className="mt-2 text-sm text-zinc-500">
-						Page 1 sur {postsResponse.totalPages} • {postsResponse.total} articles au total
-					</div>
-				)}
+				<div className="mt-2 text-sm text-zinc-500">
+					Page {pageNumber} sur {postsResponse.totalPages} • {postsResponse.total} articles au total
+				</div>
 			</header>
 
 			<ul className="space-y-6">
@@ -52,7 +70,7 @@ export default async function Home() {
 			</ul>
 
 			<Pagination 
-				currentPage={1} 
+				currentPage={pageNumber} 
 				totalPages={postsResponse.totalPages} 
 			/>
 		</main>
@@ -60,12 +78,15 @@ export default async function Home() {
 }
 
 // Métadonnées pour le SEO
-export async function generateMetadata() {
+export async function generateMetadata({ params }: PageProps) {
+	const { page: pageParam } = await params;
+	const pageNumber = parseInt(pageParam, 10);
+	
 	return {
-		title: "Ange Chierchia",
-		description: "Blog d'Ange Chierchia. Découvrez mes articles, notes et bookmarks sur le développement web et les technologies.",
+		title: `Page ${pageNumber} - Ange Chierchia`,
+		description: `Page ${pageNumber} du blog d'Ange Chierchia. Découvrez mes articles, notes et bookmarks sur le développement web et les technologies.`,
 		alternates: {
-			canonical: "/",
+			canonical: pageNumber === 1 ? "/" : `/page/${pageNumber}`,
 		},
 	};
 }

@@ -156,7 +156,8 @@ Cette approche réduit la duplication logique et rend les composants enfants bea
 - de rendre les posts différemment selon leur type éditorial,
 - d'appliquer un thème visuel différent par famille de contenu avec Tailwind,
 - **d'afficher les pages de détail avec des URLs chronologiques** `/yyyy/mm/dd/slug`,
-- **de naviguer entre les posts via des liens cliquables** sur tous les types de contenu.
+- **de naviguer entre les posts via des liens cliquables** sur tous les types de contenu,
+- **de paginer les articles pour accéder à tous les posts** (homepage et pages suivantes).
 
 Le chantier est donc déjà bien avancé sur la partie structure des données, architecture des composants et logique de rendu.
 
@@ -171,12 +172,25 @@ Une structure d'URL chronologique a été implémentée pour tous les types de p
 
 Cette approche permet une navigation sémantique et optimisée pour le SEO tout en conservant la cohérence avec les standards WordPress.
 
+## Système de pagination
+
+Une pagination complète a été implémentée pour naviguer dans tous les posts du blog :
+- **Structure des URLs** : Homepage `/` (page 1) et pages suivantes `/page/[page]`
+- **Composant Pagination** : Navigation numérotée intelligente avec ellipsis et boutons Précédent/Suivant
+- **Métadonnées WordPress** : Utilisation des headers `X-WP-Total` et `X-WP-TotalPages` pour le calcul des pages
+- **Fonction wpFetch unifiée** : Retourne systématiquement les données et les headers HTTP
+- **SEO optimisé** : Métadonnées adaptées pour chaque page avec URLs canoniques
+- **Information utilisateur** : Affichage du nombre total d'articles et de la page actuelle
+
+La pagination permet d'accéder à l'ensemble des posts au-delà des 10 premiers articles initialement affichés, avec une performance maintenue grâce au cache de 5 minutes.
+
 ## Étapes logiques suivantes
 
 Les prochaines étapes cohérentes pour continuer le projet sont les suivantes :
 
 1. ✅ **Ajouter les liens vers les pages de détail des articles** - **TERMINÉ**
-2. Gérer les images mises en avant sur les cartes et dans les pages single.
-3. Construire les routes `tag/[slug]` et `category/[slug]` pour les taxonomies.
-4. Ajouter le SEO, les métadonnées Open Graph et éventuellement la pagination.
-5. Préparer ensuite la bascule progressive du front public une fois la parité fonctionnelle atteinte.
+2. ✅ **Implémenter la pagination des articles** - **TERMINÉ**
+3. Gérer les images mises en avant sur les cartes et dans les pages single.
+4. Construire les routes `tag/[slug]` et `category/[slug]` pour les taxonomies.
+5. Ajouter les métadonnées Open Graph et améliorer le SEO global.
+6. Préparer ensuite la bascule progressive du front public une fois la parité fonctionnelle atteinte.
