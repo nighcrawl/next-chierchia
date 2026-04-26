@@ -1,26 +1,20 @@
 import { PostMeta } from "@/components/posts/post-meta";
-import type { EnrichedPost } from "@/lib/post-types";
+import type { PostCardSharedProps } from "./post-card";
 import { PostType } from "./post-type";
 
-type BookmarkPostCardProps = {
-  post: EnrichedPost;
-};
-
-export function BookmarkPostCard({ post }: BookmarkPostCardProps) {
+export function BookmarkPostCard({ post, theme }: PostCardSharedProps) {
   return (
-    <article className="rounded-lg bg-teal-50 px-5 py-6 ring-1 ring-teal-100 shadow-xl shadow-teal-200/10">
-      <PostType post={post} />
+    <article className={`rounded-lg px-4 py-4 ${theme.card}`}>
+      <PostType post={post} theme={theme} />
       <h2
-        className="text-xl font-semibold text-teal-950"
+        className={`my-4 text-xl font-semibold tracking ${theme.label}`}
         dangerouslySetInnerHTML={{ __html: post.title.rendered }}
       />
-
       <div
-        className="mt-3 space-y-4 text-base text-zinc-800"
+        className="mt-3 space-y-4 text-base text-zinc-600"
         dangerouslySetInnerHTML={{ __html: post.content.rendered }}
       />
-
-      <PostMeta post={post} />
+      <PostMeta post={post} theme={theme} />
     </article>
   );
 }

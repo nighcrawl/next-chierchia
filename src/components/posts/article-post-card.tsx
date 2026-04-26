@@ -1,24 +1,20 @@
 import { PostMeta } from "@/components/posts/post-meta";
-import type { EnrichedPost } from "@/lib/post-types";
+import type { PostCardSharedProps } from "./post-card";
 import { PostType } from "./post-type";
 
-type ArticlePostCardProps = {
-  post: EnrichedPost;
-};
-
-export function ArticlePostCard({ post }: ArticlePostCardProps) {
+export function ArticlePostCard({ post, theme }: PostCardSharedProps) {
   return (
-    <article className="rounded-xl bg-zinc-100 px-4 py-4rounded-lg bg-zinc-50 px-5 py-6 ring-1 ring-zinc-100 shadow-xl shadow-zinc-400/10">
-      <PostType post={post} />
+    <article className={`rounded-lg px-4 py-4 ${theme.card}`}>
+      <PostType post={post} theme={theme} />
       <h2
-        className="text-2xl font-bold tracking text-zinc-950"
+        className={`my-4 text-2xl font-bold tracking ${theme.label}`}
         dangerouslySetInnerHTML={{ __html: post.title.rendered }}
       />
       <div
-        className="mt-3 text-sm leading-7 text-zinc-600"
+        className="mt-3 space-y-4 text-base text-zinc-600"
         dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
       />
-      <PostMeta post={post} />
+      <PostMeta post={post} theme={theme} />
     </article>
   );
 }
