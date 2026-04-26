@@ -1,5 +1,7 @@
 import { getPosts, getTagsByIds, getCategoriesByIds } from "@/lib/wordpress";
 import { WordPressPost, WordPressTerm } from "@/lib/wordpress-types";
+import { PostCard } from "@/components/posts/post-card";
+import { EnrichedPost } from "@/lib/post-types";
 
 type PostWithTerms = WordPressPost & {
 	tagObjects: WordPressTerm[];
@@ -9,7 +11,7 @@ type PostWithTerms = WordPressPost & {
 export default async function Home() {
 	const posts = await getPosts();
 
-	const postsWithTerms: PostWithTerms[] = await Promise.all(
+	const postsWithTerms: EnrichedPost[] = await Promise.all(
 		posts.map(async (post) => {
 			const [tagObjects, categoryObjects] = await Promise.all([
 				getTagsByIds(post.tags),
@@ -35,39 +37,8 @@ export default async function Home() {
 
 			<ul className="mt-10 space-y-6">
 				{postsWithTerms.map((post: PostWithTerms) => (
-					<li key={post.id} className="border-b border-zinc-200 pb-6">
-						<div className="mb-2 flex flex-wrap gap-2">
-							{post.categoryObjects.map((category) => (
-								<span
-									key={category.id}
-									className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700"
-								>
-									{category.name}
-								</span>
-							))}
-						</div>
-						<h2
-							className="text-2xl font-semibold"
-							dangerouslySetInnerHTML={{
-								__html: post.title.rendered,
-							}}
-						/>
-						<div
-							className="mt-2 text-sm text-zinc-600"
-							dangerouslySetInnerHTML={{
-								__html: post.excerpt.rendered,
-							}}
-						/>
-						<div className="mt-2 flex flex-wrap gap-2">
-							{post.tagObjects.map((tag) => (
-								<span
-									key={tag.id}
-									className="rounded-full bg-zinc-100 px-2 py-1 text-xs text-zinc-600"
-								>
-									#{tag.name}
-								</span>
-							))}
-						</div>
+					<li key={post.id}>
+						<PostCard post={post} />
 					</li>
 				))}
 			</ul>
