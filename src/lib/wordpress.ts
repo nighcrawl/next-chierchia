@@ -73,8 +73,40 @@ export async function getCategories(): Promise<WordPressTerm[]> {
     });
 }
 
+export async function getCategoriesByIds(ids: number[]): Promise<WordPressTerm[]> {
+    if (ids.length === 0) {
+        return [];
+    }
+
+    return wpFetch<WordPressTerm[]>("categories", {
+        include: ids.join(","),
+        per_page: ids.length,
+    });
+}
+
+export async function getCategoryById(id: number): Promise<WordPressTerm | null> {
+    const categories = await getCategoriesByIds([id]);
+    return categories[0] ?? null;
+}
+
 export async function getTags(): Promise<WordPressTerm[]> {
     return wpFetch<WordPressTerm[]>("tags", {
         per_page: 100,
     });
+}
+
+export async function getTagsByIds(ids: number[]): Promise<WordPressTerm[]> {
+    if (ids.length === 0) {
+        return [];
+    }
+
+    return wpFetch<WordPressTerm[]>("tags", {
+        include: ids.join(","),
+        per_page: ids.length,
+    });
+}
+
+export async function getTagById(id: number): Promise<WordPressTerm | null> {
+    const tags = await getTagsByIds([id]);
+    return tags[0] ?? null;
 }
