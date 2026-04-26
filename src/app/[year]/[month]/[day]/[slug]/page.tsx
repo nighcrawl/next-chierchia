@@ -48,9 +48,11 @@ export default async function PostPage({ params }: {
   
   return (
     <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
-      <Link href="/" className="text-4xl font-bold tracking-tight">
+      <p className="text-4xl font-bold tracking-tight">
+        <Link href="/">
 				Ange Chierchia
 			</Link>
+      </p>
 			<p className="mt-4 text-zinc-600">
 				Front Next.js connecté à WordPress.
 			</p>
