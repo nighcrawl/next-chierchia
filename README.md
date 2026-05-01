@@ -157,7 +157,8 @@ Cette approche réduit la duplication logique et rend les composants enfants bea
 - d'appliquer un thème visuel différent par famille de contenu avec Tailwind,
 - **d'afficher les pages de détail avec des URLs chronologiques** `/yyyy/mm/dd/slug`,
 - **de naviguer entre les posts via des liens cliquables** sur tous les types de contenu,
-- **de paginer les articles pour accéder à tous les posts** (homepage et pages suivantes).
+- **de paginer les articles pour accéder à tous les posts** (homepage et pages suivantes),
+- **d'afficher les images mises en avant** avec optimisation Next.js et gestion des tailles.
 
 Le chantier est donc déjà bien avancé sur la partie structure des données, architecture des composants et logique de rendu.
 
@@ -184,13 +185,24 @@ Une pagination complète a été implémentée pour naviguer dans tous les posts
 
 La pagination permet d'accéder à l'ensemble des posts au-delà des 10 premiers articles initialement affichés, avec une performance maintenue grâce au cache de 5 minutes.
 
+## Gestion des images mises en avant
+
+Un composant `FeaturedImage` a été implémenté pour gérer l'affichage des images mises en avant des posts WordPress :
+- **Composant réutilisable** : `src/components/posts/featured-image.tsx`
+- **Support des tailles** : thumbnail, medium, large, full avec fallback intelligent
+- **Optimisation Next.js** : Utilisation du composant `Image` avec dimensions et alt text
+- **Fallback gracieux** : Gestion des posts sans image mise en avant
+- **Responsive design** : Classes Tailwind et `sizes` adaptatifs
+
+Le composant gère automatiquement la sélection de la meilleure taille disponible depuis l'API WordPress et fournit des dimensions par défaut si nécessaire.
+
 ## Étapes logiques suivantes
 
 Les prochaines étapes cohérentes pour continuer le projet sont les suivantes :
 
 1. ✅ **Ajouter les liens vers les pages de détail des articles** - **TERMINÉ**
 2. ✅ **Implémenter la pagination des articles** - **TERMINÉ**
-3. Gérer les images mises en avant sur les cartes et dans les pages single.
+3. ✅ **Gérer les images mises en avant sur les cartes et dans les pages single** - **TERMINÉ**
 4. Construire les routes `tag/[slug]` et `category/[slug]` pour les taxonomies.
 5. Ajouter les métadonnées Open Graph et améliorer le SEO global.
 6. Préparer ensuite la bascule progressive du front public une fois la parité fonctionnelle atteinte.
