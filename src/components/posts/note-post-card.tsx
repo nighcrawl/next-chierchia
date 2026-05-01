@@ -5,7 +5,7 @@ import { PostType } from "./post-type";
 
 export function NotePostCard({ post, theme }: PostCardSharedProps) {
     return (
-        <article className={`rounded-lg overflow-hidden ${theme.card}`}>
+        <article className={`rounded-lg overflow-hidden post-type post-type-note ${theme.card}`}>
             {post.featuredMediaObject && (
                 <FeaturedImage 
                     featuredMedia={post.featuredMediaObject}
@@ -13,10 +13,10 @@ export function NotePostCard({ post, theme }: PostCardSharedProps) {
                     className="w-full h-full"
                 />
             )}
-            <div className="p-4">
+            <div className="p-6">
                 <PostType post={post} theme={theme} />
                 
-                <div className="my-4 text-base text-zinc-800" dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
+                <div className="my-4 text-base" dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
                 
                 <PostMeta post={post} theme={theme} />
             </div>

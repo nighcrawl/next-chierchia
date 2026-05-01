@@ -7,15 +7,15 @@ import Link from "next/link";
 
 export function ArticlePostCard({ post, theme }: PostCardSharedProps) {
   return (
-    <article className={`rounded-lg overflow-hidden ${theme.card}`}>
-      <Link href={getPostUrl(post)}>
-        <FeaturedImage 
-          featuredMedia={post.featuredMediaObject}
-          size="full"
-          className="w-full h-full hover:opacity-90 transition-opacity"
-        />
-      </Link>
-      <div className="p-4">
+    <article className={`rounded-lg overflow-hidden post-typepost-type-article ${theme.card}`}>
+      {post.featuredMediaObject && (
+          <FeaturedImage 
+              featuredMedia={post.featuredMediaObject}
+              size="full"
+              className="w-full h-full"
+          />
+      )}
+      <div className="p-0">
         <PostType post={post} theme={theme} />
         <Link href={getPostUrl(post)}>
           <h2
@@ -24,7 +24,7 @@ export function ArticlePostCard({ post, theme }: PostCardSharedProps) {
           />
         </Link>
         <div
-          className="mt-3 space-y-4 text-base text-zinc-600"
+          className="mt-3 space-y-4 text-base"
           dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
         />
         <PostMeta post={post} theme={theme} />

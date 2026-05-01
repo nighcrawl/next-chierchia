@@ -24,3 +24,40 @@ body {
     color: var(--foreground);
     font-family: var(--font-sans);
 }
+
+@layer base {
+    p {
+        margin: 0 0 1rem;
+    }
+    
+    pre {
+        font-family: var(--font-mono);
+        background-color: var(--foreground);
+        color: var(--background);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin: 1rem 0;
+    }
+
+    .post-type-note {
+        --accent-color: var(--color-blue-700);
+    }
+    .post-type-bookmark {
+        --accent-color: var(--color-teal-700);
+    }
+    .post-type-article {
+        --accent-color: var(--color-purple-700);
+    }
+    .post-type-article {
+        --accent-color: var(--color-zinc-800);
+    }
+
+    .post-type .e-content a {
+        color: var(--accent-color);
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

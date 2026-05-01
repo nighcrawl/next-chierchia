@@ -40,11 +40,6 @@ export default async function Home() {
 				<p className="mt-4 text-zinc-600">
 					Front Next.js connecté à WordPress.
 				</p>
-				{postsResponse.totalPages > 1 && (
-					<div className="mt-2 text-sm text-zinc-500">
-						Page 1 sur {postsResponse.totalPages} • {postsResponse.total} articles au total
-					</div>
-				)}
 			</header>
 
 			<ul className="space-y-12">
@@ -57,7 +52,8 @@ export default async function Home() {
 
 			<Pagination 
 				currentPage={1} 
-				totalPages={postsResponse.totalPages} 
+				totalPages={postsResponse.totalPages}
+				accentColor="purple"
 			/>
 		</main>
 	);

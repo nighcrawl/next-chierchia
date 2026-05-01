@@ -60,9 +60,6 @@ export default async function PaginatedPage({ params }: PageProps) {
 				<p className="mt-4 text-zinc-600">
 					Front Next.js connecté à WordPress.
 				</p>
-				<div className="mt-2 text-sm text-zinc-500">
-					Page {pageNumber} sur {postsResponse.totalPages} • {postsResponse.total} articles au total
-				</div>
 			</header>
 
 			<ul className="space-y-12">
@@ -75,7 +72,8 @@ export default async function PaginatedPage({ params }: PageProps) {
 
 			<Pagination 
 				currentPage={pageNumber} 
-				totalPages={postsResponse.totalPages} 
+				totalPages={postsResponse.totalPages}
+				accentColor="purple"
 			/>
 		</main>
 	);

@@ -7,8 +7,8 @@ import Link from "next/link";
 
 export function BookmarkPostCard({ post, theme }: PostCardSharedProps) {
   return (
-    <article className={`rounded-lg overflow-hidden ${theme.card}`}>
-      <div className="p-4">
+    <article className={`rounded-lg overflow-hidden post-type post-type-bookmark ${theme.card}`}>
+      <div className="p-0">
         <PostType post={post} theme={theme} />
         <Link href={getPostUrl(post)}>
           <h2
@@ -17,7 +17,7 @@ export function BookmarkPostCard({ post, theme }: PostCardSharedProps) {
           />
         </Link>
         <div
-          className="mt-3 space-y-4 text-base text-zinc-600"
+          className="mt-3 space-y-4 text-base"
           dangerouslySetInnerHTML={{ __html: post.content.rendered }}
         />
         <PostMeta post={post} theme={theme} />

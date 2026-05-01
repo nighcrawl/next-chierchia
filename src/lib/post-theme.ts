@@ -9,33 +9,33 @@ export type PostTheme =
 
 export const postThemeMap: Record<PostKind, PostTheme> = {
     bookmark: {
-        card: 'border border-1 border-teal-100 bg-teal-50 shadow-xl shadow-teal-400/10',
+        card: 'bg-teal-50 dark:bg-teal-950 text-base shadow-sm p-6',
         category: 'text-teal-700 font-semibold',
-        tag: 'bg-teal-100 text-teal-700',
-        label: 'text-teal-800'
+        tag: 'bg-teal-600 text-teal-100',
+        label: 'text-teal-800 dark:text-teal-500'
     },
     note: {
-        card: 'border border-1 border-blue-100 bg-blue-50 shadow-xl shadow-blue-400/10',
+        card: 'bg-blue-50 dark:bg-blue-950 text-base shadow-sm',
         category: 'text-blue-700 font-semibold',
-        tag: 'bg-blue-100 text-blue-700',
-        label: 'text-blue-700'
+        tag: 'bg-blue-600 text-blue-100',
+        label: 'text-blue-800 dark:text-blue-500'
     },
     article: {
-        card: 'border border-1 border-purple-100 bg-purple-50 shadow-xl shadow-purple-400/10',
+        card: 'text-base',
         category: 'text-purple-700 font-semibold',
         tag: 'bg-purple-600 text-purple-100',
         label: 'text-purple-800'
     },
     journal: {
-        card: 'border border-zinc-100 shadow-xl shadow-zinc-400/10',
-        category: 'text-zinc-700 font-semibold',
-        tag: 'bg-zinc-600 text-zinc-100',
-        label: 'text-zinc-950'
+        card: 'bg-amber-50 dark:bg-amber-950 text-base shadow-sm p-6',
+        category: 'text-amber-700 font-semibold',
+        tag: 'bg-amber-600 text-amber-100',
+        label: 'text-amber-800 dark:text-amber-500'
     },
     default: {
-        card: '',
-        category: 'text-zinc-700 font-semibold',
-        tag: 'bg-zinc-100 text-zinc-700',
-        label: 'text-zinc-950'
+        card: 'text-base',
+        category: 'text-purple-700 font-semibold',
+        tag: 'bg-purple-600 text-purple-100',
+        label: 'text-purple-800'
     },
 };

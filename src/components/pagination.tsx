@@ -4,10 +4,58 @@ interface PaginationProps {
 	currentPage: number;
 	totalPages: number;
 	basePath?: string;
+	accentColor?: string;
 }
 
-export function Pagination({ currentPage, totalPages, basePath = "" }: PaginationProps) {
+export function Pagination({ currentPage, totalPages, basePath = "", accentColor = "purple" }: PaginationProps) {
 	if (totalPages <= 1) return null;
+
+	// Définir les classes CSS en fonction de la couleur d'accentuation
+	const getAccentClasses = () => {
+		switch (accentColor) {
+			case "blue":
+				return {
+					text: "text-blue-600",
+					hoverBg: "hover:bg-blue-100",
+					hoverText: "hover:text-blue-900",
+					ellipsis: "text-blue-500",
+					activeBg: "bg-blue-900"
+				};
+			case "green":
+				return {
+					text: "text-green-600",
+					hoverBg: "hover:bg-green-100",
+					hoverText: "hover:text-green-900",
+					ellipsis: "text-green-500",
+					activeBg: "bg-green-900"
+				};
+			case "red":
+				return {
+					text: "text-red-600",
+					hoverBg: "hover:bg-red-100",
+					hoverText: "hover:text-red-900",
+					ellipsis: "text-red-500",
+					activeBg: "bg-red-900"
+				};
+			case "yellow":
+				return {
+					text: "text-yellow-600",
+					hoverBg: "hover:bg-yellow-100",
+					hoverText: "hover:text-yellow-900",
+					ellipsis: "text-yellow-500",
+					activeBg: "bg-yellow-900"
+				};
+			case "purple":
+			default:
+				return {
+					text: "text-purple-600",
+					hoverBg: "hover:bg-purple-100",
+					hoverText: "hover:text-purple-900",
+					ellipsis: "text-purple-500",
+					activeBg: "bg-purple-900"
+				};
+		}
+	};
 
 	// Générer les numéros de page à afficher
 	const getVisiblePages = () => {
@@ -47,6 +95,7 @@ export function Pagination({ currentPage, totalPages, basePath = "" }: Paginatio
 	};
 
 	const visiblePages = getVisiblePages();
+	const accentClasses = getAccentClasses();
 
 	const getPageHref = (page: number) => {
 		if (page === 1) {
@@ -61,7 +110,7 @@ export function Pagination({ currentPage, totalPages, basePath = "" }: Paginatio
 			{currentPage > 1 && (
 				<Link
 					href={getPageHref(currentPage - 1)}
-					className="rounded-md px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors"
+					className={`rounded-md px-3 py-2 text-sm font-medium ${accentClasses.text} ${accentClasses.hoverBg} ${accentClasses.hoverText} transition-colors`}
 					aria-label="Page précédente"
 				>
 					←
@@ -76,11 +125,11 @@ export function Pagination({ currentPage, totalPages, basePath = "" }: Paginatio
 				return (
 					<div key={page} className="flex items-center">
 						{showEllipsis && (
-							<span className="px-3 py-2 text-sm text-zinc-500">...</span>
+							<span className={`px-3 py-2 text-sm ${accentClasses.ellipsis}`}>...</span>
 						)}
 						{page === currentPage ? (
 							<span
-								className="rounded-md px-3 py-2 text-sm font-medium bg-zinc-900 text-white"
+								className={`rounded-md px-3 py-2 text-sm font-medium ${accentClasses.activeBg} text-white`}
 								aria-current="page"
 							>
 								{page}
@@ -88,7 +137,7 @@ export function Pagination({ currentPage, totalPages, basePath = "" }: Paginatio
 						) : (
 							<Link
 								href={getPageHref(page)}
-								className="rounded-md px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors"
+								className={`rounded-md px-3 py-2 text-sm font-medium ${accentClasses.text} ${accentClasses.hoverBg} ${accentClasses.hoverText} transition-colors`}
 							>
 								{page}
 							</Link>
@@ -101,7 +150,7 @@ export function Pagination({ currentPage, totalPages, basePath = "" }: Paginatio
 			{currentPage < totalPages && (
 				<Link
 					href={getPageHref(currentPage + 1)}
-					className="rounded-md px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors"
+					className={`rounded-md px-3 py-2 text-sm font-medium ${accentClasses.text} ${accentClasses.hoverBg} ${accentClasses.hoverText} transition-colors`}
 					aria-label="Page suivante"
 				>
 					→
