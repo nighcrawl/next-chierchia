@@ -1,8 +1,8 @@
 import { getPostBySlug, extractFeaturedMedia } from "@/lib/wordpress";
 import { getPostUrl } from "@/lib/post-urls";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { FeaturedImage } from "@/components/posts/featured-image";
+import { Header } from "@/components/header";
 
 type PostPageParams = {
   year: string;
@@ -41,14 +41,7 @@ export default async function PostPage({ params }: {
   
   return (
     <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
-      <header className="mb-10">
-				<p className="text-4xl font-bold tracking-tight"><Link href="/">
-					Ange Chierchia
-				</Link></p>
-				<p className="mt-4 text-zinc-600">
-					Front Next.js connecté à WordPress.
-				</p>
-			</header>
+      <Header />
       <article className="mt-10 space-y-6">
         {/* Image mise en avant */}
         {featuredMediaObject && (

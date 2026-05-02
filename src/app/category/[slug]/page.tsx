@@ -5,6 +5,7 @@ import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Header } from "@/components/header";
 
 interface CategoryPageProps {
     params: Promise<{
@@ -53,6 +54,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
     return (
         <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+            <Header />
             <header className="mb-10">
                 <Link href="/" className="text-sm text-zinc-600 hover:text-zinc-900">
                     ← Retour à l'accueil

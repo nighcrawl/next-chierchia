@@ -3,7 +3,7 @@ import { WordPressPost, WordPressTerm } from "@/lib/wordpress-types";
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
-import Link from "next/link";
+import { Header } from "@/components/header";
 
 type PostWithTerms = WordPressPost & {
 	tagObjects: WordPressTerm[];
@@ -33,14 +33,7 @@ export default async function Home() {
 
 	return (
 		<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
-			<header className="mb-10">
-				<h1 className="text-4xl font-bold tracking-tight"><Link href="/">
-					Ange Chierchia
-				</Link></h1>
-				<p className="mt-4 text-zinc-600">
-					Front Next.js connecté à WordPress.
-				</p>
-			</header>
+			<Header />
 
 			<ul className="space-y-12">
 				{postsWithTerms.map((post: EnrichedPost) => (

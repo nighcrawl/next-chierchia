@@ -240,6 +240,46 @@ Les thèmes de cartes ont été affinés pour une meilleure cohérence visuelle 
 - **Padding unifié** : Les cartes utilisent maintenant `p-6` au niveau du composant parent
 - **Classes de carte simplifiées** : Suppression du padding dupliqué dans les thèmes
 
+## Navigation et Header mutualisé
+
+Un système de navigation complet a été implémenté avec un header mutualisé pour toute l'application :
+
+### Composant Header
+- **Fichier** : `src/components/header.tsx`
+- **Fonctionnalités** : Header centralisé avec menu de navigation
+- **Intégration** : Inclus dans toutes les pages du site
+- **Design** : Navigation horizontale avec styles cohérents et effets hover
+
+### Menu de navigation
+Le header inclut les liens suivants :
+- **Homepage** (`/`) : Page d'accueil avec tous les posts
+- **Notes** (`/category/notes`) : Filtrage des posts de type notes
+- **Articles** (`/category/articles`) : Filtrage des posts de type articles  
+- **Journal** (`/category/journal`) : Filtrage des posts de type journal
+- **À propos** (`/a-propos`) : Page statique avec contenu WordPress
+- **Contact** (`/contact`) : Page statique avec contenu WordPress
+
+### Pages WordPress dynamiques
+Deux pages statiques ont été créées pour utiliser le contenu WordPress :
+
+#### Page À propos
+- **URL** : `/a-propos`
+- **Source** : Page WordPress avec le slug `a-propos`
+- **Contenu** : Récupéré dynamiquement via `getPageBySlug("a-propos")`
+- **Métadonnées** : SEO dynamique basé sur le contenu WordPress
+
+#### Page Contact  
+- **URL** : `/contact`
+- **Source** : Page WordPress avec le slug `contact`
+- **Contenu** : Récupéré dynamiquement via `getPageBySlug("contact")`
+- **Métadonnées** : SEO dynamique basé sur le contenu WordPress
+
+### Avantages de l'approche
+- **Maintenance simplifiée** : Le contenu peut être mis à jour directement depuis WordPress
+- **Header centralisé** : Un seul point de maintenance pour la navigation
+- **SEO optimisé** : Métadonnées dynamiques pour chaque page
+- **URLs propres** : Structure d'URL cohérente et optimisée pour les moteurs de recherche
+
 ## État actuel du projet
 
 À ce stade, le projet permet déjà :
@@ -255,7 +295,9 @@ Les thèmes de cartes ont été affinés pour une meilleure cohérence visuelle 
 - **d'afficher les images mises en avant** avec optimisation Next.js et gestion des tailles,
 - **🆕 de naviguer dans les catégories et tags avec pagination complète**,
 - **🆕 d'accéder à des pages de taxonomie avec URLs SEO-friendly**,
-- **🆕 de cliquer sur tous les tags et types de posts pour filtrer le contenu**.
+- **🆕 de cliquer sur tous les tags et types de posts pour filtrer le contenu**,
+- **🆕 de naviguer avec un header mutualisé sur toutes les pages**,
+- **🆕 d'accéder à des pages statiques avec contenu WordPress dynamique**.
 
 Le chantier est donc déjà très avancé sur la partie structure des données, architecture des composants, logique de rendu et navigation taxonomique.
 
@@ -267,5 +309,7 @@ Les prochaines étapes cohérentes pour continuer le projet sont les suivantes :
 2. ✅ **Implémenter la pagination des articles** - **TERMINÉ**
 3. ✅ **Gérer les images mises en avant sur les cartes et dans les pages single** - **TERMINÉ**
 4. ✅ **Construire les routes tag/[slug] et category/[slug] pour les taxonomies** - **TERMINÉ**
-5. Ajouter les métadonnées Open Graph et améliorer le SEO global.
-6. Préparer ensuite la bascule progressive du front public une fois la parité fonctionnelle atteinte.
+5. ✅ **Créer un header mutualisé avec menu de navigation** - **TERMINÉ**
+6. ✅ **Implémenter les pages statiques avec contenu WordPress (À propos, Contact)** - **TERMINÉ**
+7. Ajouter les métadonnées Open Graph et améliorer le SEO global.
+8. Préparer ensuite la bascule progressive du front public une fois la parité fonctionnelle atteinte.
