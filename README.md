@@ -196,6 +196,69 @@ Un composant `FeaturedImage` a été implémenté pour gérer l'affichage des im
 
 Le composant gère automatiquement la sélection de la meilleure taille disponible depuis l'API WordPress et fournit des dimensions par défaut si nécessaire.
 
+## Routes de taxonomies (tags et catégories)
+
+Des routes dynamiques complètes ont été implémentées pour naviguer dans les taxonomies WordPress :
+
+### Routes des catégories
+- **Format des URLs** : `/category/[slug]` (page 1) et `/category/[slug]/page/[page]` (pages suivantes)
+- **Route principale** : `src/app/category/[slug]/page.tsx`
+- **Route paginée** : `src/app/category/[slug]/page/[page]/page.tsx`
+- **Exemples** : `/category/bookmarks`, `/category/journal/page/2`
+
+### Routes des tags
+- **Format des URLs** : `/tag/[slug]` (page 1) et `/tag/[slug]/page/[page]` (pages suivantes)
+- **Route principale** : `src/app/tag/[slug]/page.tsx`
+- **Route paginée** : `src/app/tag/[slug]/page/[page]/page.tsx`
+- **Exemples** : `/tag/css`, `/tag/wordpress/page/3`
+
+### Fonctionnalités implémentées
+- **Résolution par slug** : Utilisation de `getCategoryBySlug()` et `getTagBySlug()` avec fallback pour contourner les erreurs 403 de l'API WordPress
+- **Pagination contextuelle** : Conservation du contexte de taxonomie dans tous les liens de pagination
+- **Enrichissement des posts** : Les posts dans les pages de taxonomies incluent leurs catégories, tags et médias
+- **SEO optimisé** : Métadonnées adaptées avec titres, descriptions et URLs canoniques
+- **Navigation cohérente** : Boutons précédent/suivant et retour à l'accueil
+
+### Liens cliquables dans les templates
+- **Tags cliquables** : Tous les tags dans les métadonnées des posts renvoient vers leurs pages de taxonomie
+- **Catégories cliquables** : Le type de post (bookmark, note, article, journal) est maintenant un lien vers la catégorie correspondante
+- **Format simplifié** : Utilisation de `/tag/[slug]` au lieu de `/tags/[slug]` pour plus de simplicité
+
+### Compatibilité Next.js 15+
+- **Params as Promises** : Adaptation de toutes les routes dynamiques pour gérer `params` et `searchParams` comme des Promises
+- **Structure corrigée** : Utilisation de `await params` et `await searchParams` dans les composants de route
+
+## Architecture des composants enrichie
+
+### PostType cliquable
+Le composant `PostType` a été transformé en lien cliquable vers la catégorie correspondante :
+- **Fonction `getPostKindUrl()`** : Mapping des types de posts vers leurs URLs de catégorie
+- **Logique centralisée** : Un seul point de décision pour les URLs de type de post
+
+### Thèmes visuels ajustés
+Les thèmes de cartes ont été affinés pour une meilleure cohérence visuelle :
+- **Padding unifié** : Les cartes utilisent maintenant `p-6` au niveau du composant parent
+- **Classes de carte simplifiées** : Suppression du padding dupliqué dans les thèmes
+
+## État actuel du projet
+
+À ce stade, le projet permet déjà :
+
+- de consommer les vrais contenus WordPress depuis le site existant,
+- d'enrichir les posts avec catégories et tags,
+- de typer correctement les données côté TypeScript,
+- de rendre les posts différemment selon leur type éditorial,
+- d'appliquer un thème visuel différent par famille de contenu avec Tailwind,
+- **d'afficher les pages de détail avec des URLs chronologiques** `/yyyy/mm/dd/slug`,
+- **de naviguer entre les posts via des liens cliquables** sur tous les types de contenu,
+- **de paginer les articles pour accéder à tous les posts** (homepage et pages suivantes),
+- **d'afficher les images mises en avant** avec optimisation Next.js et gestion des tailles,
+- **🆕 de naviguer dans les catégories et tags avec pagination complète**,
+- **🆕 d'accéder à des pages de taxonomie avec URLs SEO-friendly**,
+- **🆕 de cliquer sur tous les tags et types de posts pour filtrer le contenu**.
+
+Le chantier est donc déjà très avancé sur la partie structure des données, architecture des composants, logique de rendu et navigation taxonomique.
+
 ## Étapes logiques suivantes
 
 Les prochaines étapes cohérentes pour continuer le projet sont les suivantes :
@@ -203,6 +266,6 @@ Les prochaines étapes cohérentes pour continuer le projet sont les suivantes :
 1. ✅ **Ajouter les liens vers les pages de détail des articles** - **TERMINÉ**
 2. ✅ **Implémenter la pagination des articles** - **TERMINÉ**
 3. ✅ **Gérer les images mises en avant sur les cartes et dans les pages single** - **TERMINÉ**
-4. Construire les routes `tag/[slug]` et `category/[slug]` pour les taxonomies.
+4. ✅ **Construire les routes tag/[slug] et category/[slug] pour les taxonomies** - **TERMINÉ**
 5. Ajouter les métadonnées Open Graph et améliorer le SEO global.
 6. Préparer ensuite la bascule progressive du front public une fois la parité fonctionnelle atteinte.

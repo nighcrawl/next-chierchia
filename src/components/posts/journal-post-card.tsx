@@ -15,7 +15,7 @@ export function JournalPostCard({ post, theme }: PostCardSharedProps) {
               className="w-full h-full"
           />
       )}
-      <div className="p-0">
+      <div className="p-6">
         <PostType post={post} theme={theme} />
         <Link href={getPostUrl(post)}>
           <h2

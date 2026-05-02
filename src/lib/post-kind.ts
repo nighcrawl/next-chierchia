@@ -14,3 +14,18 @@ export function getPostKind(post: EnrichedPost): PostKind {
 
     return "default";
 }
+export function getPostKindUrl(post: EnrichedPost): string {
+    const kind = getPostKind(post);
+    switch (kind) {
+        case "bookmark":
+            return "/category/bookmarks";
+        case "note":
+            return "/category/notes";
+        case "article":
+            return "/category/articles";
+        case "journal":
+            return "/category/journal";
+        default:
+            return "/";
+    }
+}

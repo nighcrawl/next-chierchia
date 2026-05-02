@@ -24,9 +24,17 @@ export function PostMeta({post, theme}: PostMetaProps) {
         <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
             <Link href={getPostUrl(post)}><time dateTime={post.date} className={theme.label}>{formatDate(post.date)}</time></Link>
 
-            {post.tagObjects.map((tag) => (
-                <span key={`tag-${tag.id}`} className={`rounded-full px-2 py-1 ${theme.tag}`}>#{tag.name}</span>
-            ))}
+            {post.tagObjects.map((tag) => {
+                return (
+                    <Link 
+                        key={`tag-${tag.id}`} 
+                        href={`/tag/${tag.slug}`}
+                        className={`rounded-full px-2 py-1 ${theme.tag} hover:opacity-80 transition-opacity`}
+                    >
+                        #{tag.name}
+                    </Link>
+                );
+            })}
         </div>
     )
 }

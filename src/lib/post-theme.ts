@@ -9,7 +9,7 @@ export type PostTheme =
 
 export const postThemeMap: Record<PostKind, PostTheme> = {
     bookmark: {
-        card: 'bg-teal-50 dark:bg-teal-950 text-base shadow-sm p-6',
+        card: 'bg-teal-50 dark:bg-teal-950 text-base shadow-sm',
         category: 'text-teal-700 font-semibold',
         tag: 'bg-teal-600 text-teal-100',
         label: 'text-teal-800 dark:text-teal-500'
@@ -27,7 +27,7 @@ export const postThemeMap: Record<PostKind, PostTheme> = {
         label: 'text-purple-800'
     },
     journal: {
-        card: 'bg-amber-50 dark:bg-amber-950 text-base shadow-sm p-6',
+        card: 'bg-amber-50 dark:bg-amber-950 text-base shadow-sm',
         category: 'text-amber-700 font-semibold',
         tag: 'bg-amber-600 text-amber-100',
         label: 'text-amber-800 dark:text-amber-500'

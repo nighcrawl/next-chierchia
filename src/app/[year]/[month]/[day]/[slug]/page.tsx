@@ -17,13 +17,10 @@ export default async function PostPage({ params }: {
   params: Promise<PostPageParams> 
 }) {
   const { year, month, day, slug } = await params;
-  console.log("PostPage params:", { year, month, day, slug });
   
   const post = await getPostBySlug(slug);
-  console.log("Post found:", post ? "YES" : "NO");
   
   if (!post) {
-    console.log("Post not found for slug:", slug);
     notFound();
   }
   
@@ -36,13 +33,9 @@ export default async function PostPage({ params }: {
   const postMonth = (postDate.getMonth() + 1).toString().padStart(2, '0');
   const postDay = postDate.getDate().toString().padStart(2, '0');
   
-  console.log("Post date parts:", { postYear, postMonth, postDay });
-  console.log("URL date parts:", { year, month, day });
-  
   if (year !== postYear || 
       month !== postMonth || 
       day !== postDay) {
-    console.log("Date mismatch!");
     notFound();
   }
   
