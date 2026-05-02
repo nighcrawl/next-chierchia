@@ -172,7 +172,7 @@ export async function getCategoryBySlug(slug: string): Promise<WordPressTerm | n
         if (categories.length > 0) {
             return categories[0];
         }
-    } catch (error) {
+    } catch {
         // Si l'API bloque, utiliser le fallback
     }
     

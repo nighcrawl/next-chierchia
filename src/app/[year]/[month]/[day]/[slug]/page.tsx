@@ -1,5 +1,4 @@
 import { getPostBySlug, extractFeaturedMedia } from "@/lib/wordpress";
-import { getPostUrl } from "@/lib/post-urls";
 import { notFound } from "next/navigation";
 import { FeaturedImage } from "@/components/posts/featured-image";
 import { Header } from "@/components/header";
