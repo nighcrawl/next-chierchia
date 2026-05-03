@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/nighcrawl/next-chierchia/compare/v1.1.0...v1.2.0) (2026-05-03)
+
+
+### Bug Fixes
+
+* resolve ESLint errors blocking GitHub release ([ae54aab](https://github.com/nighcrawl/next-chierchia/commit/ae54aaba7b66cb350d9a2c9610e40b6c1ab2f0a9))
+* resolve merge conflicts in category pages ([a744bf9](https://github.com/nighcrawl/next-chierchia/commit/a744bf9412f096a035ab7b9305af94d2f3d4fa46))
+
+
+### Features
+
+* improve header navigation with sticky positioning and responsive design ([2d0b66d](https://github.com/nighcrawl/next-chierchia/commit/2d0b66dcae16c64ca498b355d7803b41061f8f0d))
+
 # [1.1.0](https://github.com/nighcrawl/next-chierchia/compare/v1.0.0...v1.1.0) (2026-05-02)
 
 
