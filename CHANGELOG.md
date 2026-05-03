@@ -1,3 +1,17 @@
+# [1.3.0](https://github.com/nighcrawl/next-chierchia/compare/v1.2.1...v1.3.0) (2026-05-03)
+
+
+### Bug Fixes
+
+* move defaultTags outside component to resolve React Hook exhaustive-deps warning ([0c57d82](https://github.com/nighcrawl/next-chierchia/commit/0c57d8250b13c393b764269147a65855b9f3ab58))
+* standardize WORDPRESS_API_BASE environment variable ([1d14ca2](https://github.com/nighcrawl/next-chierchia/commit/1d14ca2dfc880e0d471cd1c94c3d4f08d154ee81))
+
+
+### Features
+
+* add wp-block-styles for Gutenberg block styling ([e2997f2](https://github.com/nighcrawl/next-chierchia/commit/e2997f2e05d4ac3a6f6acee1af39290289f3a3ba))
+* update tag page, footer and WordPress integration ([dc5bde1](https://github.com/nighcrawl/next-chierchia/commit/dc5bde1da9d788edcb2bef4eec0be32ddc52ed8b))
+
 ## [1.2.1](https://github.com/nighcrawl/next-chierchia/compare/v1.2.0...v1.2.1) (2026-05-03)
 
 
