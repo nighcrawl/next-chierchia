@@ -52,40 +52,42 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
     );
 
     return (
-        <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+        <>
             <Header />
-            <header className="mb-10">
-                <Link href="/" className="text-sm text-zinc-600 hover:text-zinc-900">
-                    ← Retour à l&apos;accueil
-                </Link>
-                <h1 className="mt-4 text-4xl font-bold tracking-tight">
-                    Catégorie: {category.name}
-                </h1>
-                {category.description && (
-                    <p className="mt-4 text-zinc-600">{category.description}</p>
+            <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+                <header className="mb-10">
+                    <Link href="/" className="text-sm text-zinc-600 hover:text-zinc-900">
+                        ← Retour à l'accueil
+                    </Link>
+                    <h1 className="mt-4 text-4xl font-bold tracking-tight">
+                        Catégorie: {category.name}
+                    </h1>
+                    {category.description && (
+                        <p className="mt-4 text-zinc-600">{category.description}</p>
+                    )}
+                    <p className="mt-2 text-sm text-zinc-500">
+                        {postsResponse.total} post{postsResponse.total > 1 ? "s" : ""}
+                    </p>
+                </header>
+
+                <ul className="space-y-12">
+                    {postsWithTerms.map((post: EnrichedPost) => (
+                        <li key={post.id}>
+                            <PostCard post={post} />
+                        </li>
+                    ))}
+                </ul>
+
+                {postsResponse.totalPages > 1 && (
+                    <Pagination 
+                        currentPage={currentPage} 
+                        totalPages={postsResponse.totalPages}
+                        basePath={`/category/${slug}`}
+                        accentColor="purple"
+                    />
                 )}
-                <p className="mt-2 text-sm text-zinc-500">
-                    {postsResponse.total} post{postsResponse.total > 1 ? "s" : ""}
-                </p>
-            </header>
-
-            <ul className="space-y-12">
-                {postsWithTerms.map((post: EnrichedPost) => (
-                    <li key={post.id}>
-                        <PostCard post={post} />
-                    </li>
-                ))}
-            </ul>
-
-            {postsResponse.totalPages > 1 && (
-                <Pagination 
-                    currentPage={currentPage} 
-                    totalPages={postsResponse.totalPages}
-                    basePath={`/category/${slug}`}
-                    accentColor="purple"
-                />
-            )}
-        </main>
+            </main>
+        </>
     );
 }
 
