@@ -5,7 +5,6 @@ import { FeaturedImage } from "@/components/posts/featured-image";
 type PostPageParams = {
   year: string;
   month: string;
-  day: string;
   slug: string;
 };
 
@@ -14,7 +13,7 @@ export const dynamic = 'force-dynamic';
 export default async function PostPage({ params }: { 
   params: Promise<PostPageParams> 
 }) {
-  const { year, month, day, slug } = await params;
+  const { year, month, slug } = await params;
   
   const post = await getPostBySlug(slug);
   
@@ -25,15 +24,13 @@ export default async function PostPage({ params }: {
   // Extraire les médias mis en avant
   const featuredMediaObject = extractFeaturedMedia(post);
   
-  // Validation de la date directement ici pour éviter le problème avec getPostDateParts
+  // Validation de la date
   const postDate = new Date(post.date);
   const postYear = postDate.getFullYear().toString();
   const postMonth = (postDate.getMonth() + 1).toString().padStart(2, '0');
-  const postDay = postDate.getDate().toString().padStart(2, '0');
   
   if (year !== postYear || 
-      month !== postMonth || 
-      day !== postDay) {
+      month !== postMonth) {
     notFound();
   }
   
