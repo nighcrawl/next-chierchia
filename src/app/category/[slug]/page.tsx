@@ -55,7 +55,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
             <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
                 <header className="mb-10">
                     <Link href="/" className="text-sm text-zinc-600 hover:text-zinc-900">
-                        ← Retour à l'accueil
+                        ← Retour à l&apos;accueil
                     </Link>
                     <h1 className="mt-4 text-4xl font-bold tracking-tight">
                         Catégorie: {category.name}

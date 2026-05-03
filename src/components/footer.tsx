@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import type { WordPressTerm } from '@/lib/wordpress-types';
 
 interface Tag {
   name: string;
@@ -21,8 +22,8 @@ export function Footer() {
           const tagsData = await response.json();
           // Filtrer les tags utilisés et trier par count
           const usedTags = tagsData
-            .filter((tag: any) => tag.count > 0)
-            .map((tag: any) => ({
+            .filter((tag: WordPressTerm) => tag.count > 0)
+            .map((tag: WordPressTerm) => ({
               name: tag.name,
               count: tag.count
             }))

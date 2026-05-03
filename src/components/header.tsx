@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export function Header() {
@@ -16,9 +17,11 @@ export function Header() {
 				{/* Logo/Brand */}
 				<Link href="/" className="flex items-center space-x-4" aria-label="Ange Chierchia - Accueil">
 					<div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
-						<img
+						<Image
 							src="https://chierchia.fr/wp-content/uploads/cropped-16350293-SSDKVqo3-150x150.jpg"
 							alt="Ange Chierchia"
+							width={48}
+							height={48}
 							className="w-full h-full object-cover"
 						/>
 					</div>
