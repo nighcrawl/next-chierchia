@@ -78,7 +78,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
                 <Pagination 
                     currentPage={currentPage} 
                     totalPages={postsResponse.totalPages}
-                    basePath={`/tags/${slug}`}
+                    basePath={`/tag/${slug}`}
                     accentColor="purple"
                 />
             )}
@@ -101,7 +101,7 @@ export async function generateMetadata({ params }: TagPageProps) {
         title: `Tag: ${tag.name} - Ange Chierchia`,
         description: tag.description || `Découvrez tous les posts avec le tag ${tag.name}`,
         alternates: {
-            canonical: `/tags/${resolvedParams.slug}`,
+            canonical: `/tag/${resolvedParams.slug}`,
         },
     };
 }

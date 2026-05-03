@@ -13,27 +13,44 @@ export function Footer() {
   const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Tags par défaut pour éviter une section vide
+  const defaultTags: Tag[] = [
+    { name: "JavaScript", count: 0 },
+    { name: "React", count: 0 },
+    { name: "Next.js", count: 0 },
+    { name: "WordPress", count: 0 },
+    { name: "TypeScript", count: 0 },
+    { name: "Web Development", count: 0 },
+    { name: "Full Stack", count: 0 },
+    { name: "Node.js", count: 0 }
+  ];
+
   useEffect(() => {
     // Récupérer tous les tags depuis WordPress
     const fetchTags = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wp/v2/tags?per_page=100`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/tags?per_page=100`);
         if (response.ok) {
           const tagsData = await response.json();
           // Filtrer les tags utilisés et trier par count
           const usedTags = tagsData
             .filter((tag: WordPressTerm) => tag.count > 0)
             .map((tag: WordPressTerm) => ({
-              name: tag.name,
+              name: tag.name.toLowerCase(),
               count: tag.count
             }))
             .sort((a: Tag, b: Tag) => b.count - a.count)
             .slice(0, 20); // Limiter à 20 tags les plus populaires
           
           setTags(usedTags);
+        } else {
+          // Si la réponse n'est pas OK, utiliser les tags par défaut
+          setTags(defaultTags);
         }
       } catch (error) {
         console.error('Erreur lors de la récupération des tags:', error);
+        // En cas d'erreur, utiliser les tags par défaut
+        setTags(defaultTags);
       } finally {
         setLoading(false);
       }
@@ -107,7 +124,7 @@ export function Footer() {
               <div className="text-gray-600 dark:text-gray-400 text-sm">
                 Chargement des tags...
               </div>
-            ) : tags.length > 0 ? (
+            ) : (
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
                   <Link
@@ -116,15 +133,13 @@ export function Footer() {
                     className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 transition-colors"
                   >
                     {tag.name}
-                    <span className="ml-1 text-gray-500 dark:text-gray-400">
-                      ({tag.count})
-                    </span>
+                    {tag.count > 0 && (
+                      <span className="ml-1 text-gray-500 dark:text-gray-400">
+                        ({tag.count})
+                      </span>
+                    )}
                   </Link>
                 ))}
-              </div>
-            ) : (
-              <div className="text-gray-600 dark:text-gray-400 text-sm">
-                Aucun tag disponible
               </div>
             )}
           </div>
