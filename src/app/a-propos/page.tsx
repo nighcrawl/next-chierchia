@@ -10,8 +10,9 @@ export default async function AboutPage() {
 	}
 
 	return (
+		<>
+		<Header />
 		<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
-			<Header />
 			
 			<article className="prose prose-zinc max-w-none">
 				<h1>{page.title.rendered}</h1>
@@ -20,6 +21,7 @@ export default async function AboutPage() {
 				/>
 			</article>
 		</main>
+		</>
 	);
 }
 

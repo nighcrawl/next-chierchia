@@ -32,23 +32,25 @@ export default async function Home() {
 	);
 
 	return (
-		<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+		<>
 			<Header />
+			<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
 
-			<ul className="space-y-12">
-				{postsWithTerms.map((post: EnrichedPost) => (
-					<li key={post.id}>
-						<PostCard post={post} />
-					</li>
-				))}
-			</ul>
+				<ul className="space-y-12">
+					{postsWithTerms.map((post: EnrichedPost) => (
+						<li key={post.id}>
+							<PostCard post={post} />
+						</li>
+					))}
+				</ul>
 
-			<Pagination 
-				currentPage={1} 
-				totalPages={postsResponse.totalPages}
-				accentColor="purple"
-			/>
-		</main>
+				<Pagination 
+					currentPage={1} 
+					totalPages={postsResponse.totalPages}
+					accentColor="purple"
+				/>
+			</main>
+		</>
 	);
 }
 

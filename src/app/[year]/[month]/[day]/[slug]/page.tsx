@@ -40,41 +40,43 @@ export default async function PostPage({ params }: {
   }
   
   return (
-    <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+    <>
       <Header />
-      <article className="mt-10 space-y-6">
-        {/* Image mise en avant */}
-        {featuredMediaObject && (
-          <div className="mb-8">
-            <FeaturedImage 
-              featuredMedia={featuredMediaObject}
-              size="large"
-              className="w-full h-64 md:h-96 rounded-lg shadow-lg"
-              priority={true}
-            />
-          </div>
-        )}
-        
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold tracking-tight">
-            {post.title.rendered}
-          </h1>
-          <div className="mt-4 text-zinc-600">
-            <time dateTime={post.date}>
-              {new Date(post.date).toLocaleDateString('fr-FR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </time>
-          </div>
-        </header>
-        
-        <div 
-          className="prose prose-zinc max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content.rendered }}
-        />
-      </article>
-    </main>
+      <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+        <article className="mt-10 space-y-6">
+          {/* Image mise en avant */}
+          {featuredMediaObject && (
+            <div className="mb-8">
+              <FeaturedImage 
+                featuredMedia={featuredMediaObject}
+                size="large"
+                className="w-full h-64 md:h-96 rounded-lg shadow-lg"
+                priority={true}
+              />
+            </div>
+          )}
+          
+          <header className="mb-8">
+            <h1 className="text-4xl font-bold tracking-tight">
+              {post.title.rendered}
+            </h1>
+            <div className="mt-4 text-zinc-600">
+              <time dateTime={post.date}>
+                {new Date(post.date).toLocaleDateString('fr-FR', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </time>
+            </div>
+          </header>
+          
+          <div 
+            className="prose prose-zinc max-w-none"
+            dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+          />
+        </article>
+      </main>
+    </>
   );
 }
