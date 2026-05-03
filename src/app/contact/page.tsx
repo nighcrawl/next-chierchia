@@ -1,4 +1,3 @@
-import { Header } from "@/components/header";
 import { getPageBySlug } from "@/lib/wordpress";
 import { notFound } from "next/navigation";
 
@@ -10,18 +9,15 @@ export default async function ContactPage() {
 	}
 
 	return (
-		<>
-			<Header />
-			<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
-				
-				<article className="prose prose-zinc max-w-none">
-					<h1>{page.title.rendered}</h1>
-					<div 
-						dangerouslySetInnerHTML={{ __html: page.content.rendered }}
-					/>
-				</article>
-			</main>
-		</>
+		<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+			
+			<article className="prose prose-zinc max-w-none">
+				<h1>{page.title.rendered}</h1>
+				<div 
+					dangerouslySetInnerHTML={{ __html: page.content.rendered }}
+				/>
+			</article>
+		</main>
 	);
 }
 

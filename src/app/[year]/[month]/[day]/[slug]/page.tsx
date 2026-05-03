@@ -1,7 +1,6 @@
 import { getPostBySlug, extractFeaturedMedia } from "@/lib/wordpress";
 import { notFound } from "next/navigation";
 import { FeaturedImage } from "@/components/posts/featured-image";
-import { Header } from "@/components/header";
 
 type PostPageParams = {
   year: string;
@@ -40,7 +39,6 @@ export default async function PostPage({ params }: {
   
   return (
     <>
-      <Header />
       <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
         <article className="mt-10 space-y-6">
           {/* Image mise en avant */}

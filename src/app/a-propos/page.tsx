@@ -1,4 +1,3 @@
-import { Header } from "@/components/header";
 import { getPageBySlug } from "@/lib/wordpress";
 import { notFound } from "next/navigation";
 
@@ -10,8 +9,6 @@ export default async function AboutPage() {
 	}
 
 	return (
-		<>
-		<Header />
 		<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
 			
 			<article className="prose prose-zinc max-w-none">
@@ -21,7 +18,6 @@ export default async function AboutPage() {
 				/>
 			</article>
 		</main>
-		</>
 	);
 }
 

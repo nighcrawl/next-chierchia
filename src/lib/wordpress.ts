@@ -71,12 +71,6 @@ export async function getPostBySlug(slug: string): Promise<WordPressPost | null>
     return posts[0] ?? null;
 }
 
-export async function getPages(): Promise<WordPressPage[]> {
-    const { data: pages } = await wpFetch<WordPressPage[]>("pages", {
-        per_page: 100,
-    });
-    return pages;
-}
 
 export async function getPageBySlug(slug: string): Promise<WordPressPage | null> {
     const { data: pages } = await wpFetch<WordPressPage[]>("pages", {
@@ -86,6 +80,14 @@ export async function getPageBySlug(slug: string): Promise<WordPressPage | null>
 
     return pages[0] ?? null;
 }
+
+export async function getPages(): Promise<WordPressPage[]> {
+    const { data: pages } = await wpFetch<WordPressPage[]>("pages", {
+        per_page: 100,
+    });
+    return pages;
+}
+
 
 export async function getCategories(): Promise<WordPressTerm[]> {
     const { data: categories } = await wpFetch<WordPressTerm[]>("categories", {
@@ -111,6 +113,8 @@ export async function getCategoryById(id: number): Promise<WordPressTerm | null>
     return categories[0] ?? null;
 }
 
+
+
 export async function getTags(): Promise<WordPressTerm[]> {
     const { data: tags } = await wpFetch<WordPressTerm[]>("tags", {
         per_page: 100,
@@ -134,6 +138,7 @@ export async function getTagById(id: number): Promise<WordPressTerm | null> {
     const tags = await getTagsByIds([id]);
     return tags[0] ?? null;
 }
+
 
 export async function getTagBySlug(slug: string): Promise<WordPressTerm | null> {
     const { data: tags } = await wpFetch<WordPressTerm[]>("tags", {
@@ -179,7 +184,7 @@ export async function getCategoryBySlug(slug: string): Promise<WordPressTerm | n
     // Fallback: récupérer toutes les catégories et filtrer localement
     const allCategories = await getCategories();
     
-    const foundCategory = allCategories.find(category => category.slug === slug);
+    const foundCategory = allCategories.find((category: WordPressTerm) => category.slug === slug);
     
     return foundCategory ?? null;
 }

@@ -11,49 +11,121 @@ export function Header() {
 	};
 
 	return (
-		<header className='sticky top-0 left-0 right-0 z-50'>
-			<nav className="flex items-center justify-between flex-wrap bg-white dark:bg-black text-base py-4 px-4 shadow shadow-sm">
-				<div className="flex justify-between lg:w-auto w-full">
-					<div className="flex items-center flex-shrink-0 text-base mr-auto">
-						<Link href="/" className="text-xl flex flex-col">
-							<span className="text-xl font-bold tracking-wider uppercase">Ange Chierchia</span> 
-							<span className="text-xs tracking-tight uppercase">Développeur Web full-stack</span>
-						</Link>
+		<header className="sticky top-0 left-0 right-0 z-50 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800">
+			<nav className="flex items-center justify-between w-full bg-white dark:bg-black py-6 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+				{/* Logo/Brand */}
+				<Link href="/" className="flex items-center space-x-4" aria-label="Ange Chierchia - Accueil">
+					<div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+						<img
+							src="https://chierchia.fr/wp-content/uploads/cropped-16350293-SSDKVqo3-150x150.jpg"
+							alt="Ange Chierchia"
+							className="w-full h-full object-cover"
+						/>
 					</div>
-					<div className="block lg:hidden">
-						<button
-							onClick={toggleMenu}
-							id="nav"
-							className="flex items-center px-3 py-2 border-2 rounded text-blue-700 border-blue-700 hover:text-blue-700 hover:border-blue-700"
-						>
-							<svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-								<title>Menu</title>
-								<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
-							</svg>
-						</button>
+					<div className="hidden sm:block">
+						<div className="text-lg font-bold tracking-tight text-gray-900 dark:text-gray-100">
+							Ange Chierchia
+						</div>
+						<div className="text-sm text-gray-500 dark:text-gray-400">
+							Développeur Web full-stack
+						</div>
 					</div>
+				</Link>
+
+				{/* Desktop Navigation */}
+				<div className="hidden lg:flex items-center space-x-6">
+					<Link
+						href="/category/notes"
+						className="text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+					>
+						Notes
+					</Link>
+					<Link
+						href="/category/articles"
+						className="text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+					>
+						Articles
+					</Link>
+					<Link
+						href="/category/journal"
+						className="text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+					>
+						Journal
+					</Link>
+					<Link
+						href="/a-propos"
+						className="text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+					>
+						À propos
+					</Link>
+					<Link
+						href="/contact"
+						className="text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+					>
+						Contact
+					</Link>
 				</div>
 
-				<div className={`${isMenuOpen ? 'block' : 'hidden'} menu  lg:flex lg:items-center`}>
-					<div className="text-md font-bold text-purple-700 lg:flex-grow">
-						<Link href="/category/notes" className="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-purple-700 mr-2">
+				{/* Mobile menu button */}
+				<div className="lg:hidden flex items-center space-x-2">
+					<button
+						onClick={toggleMenu}
+						className="flex items-center p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+						aria-label="Ouvrir le menu"
+					>
+						<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							{isMenuOpen ? (
+								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+							) : (
+								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+							)}
+						</svg>
+					</button>
+				</div>
+			</nav>
+
+			{/* Mobile Navigation */}
+			{isMenuOpen && (
+				<div className="lg:hidden border-t border-gray-200 dark:border-gray-700">
+					<div className="px-4 py-6 space-y-4">
+						<Link
+							href="/category/notes"
+							className="block text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400"
+							onClick={() => setIsMenuOpen(false)}
+						>
 							Notes
 						</Link>
-						<Link href="/category/articles" className="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-purple-700 mr-2">
+						<Link
+							href="/category/articles"
+							className="block text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400"
+							onClick={() => setIsMenuOpen(false)}
+						>
 							Articles
 						</Link>
-						<Link href="/category/journal" className="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-purple-700 mr-2">
+						<Link
+							href="/category/journal"
+							className="block text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400"
+							onClick={() => setIsMenuOpen(false)}
+						>
 							Journal
 						</Link>
-						<Link href="/a-propos" className="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-purple-700 mr-2">
+						<Link
+							href="/a-propos"
+							className="block text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400"
+							onClick={() => setIsMenuOpen(false)}
+						>
 							À propos
 						</Link>
-						<Link href="/contact" className="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:bg-purple-700 mr-2">
+						<Link
+							href="/contact"
+							className="block text-base font-medium text-gray-900 dark:text-gray-100 hover:text-primary-500 dark:hover:text-primary-400"
+							onClick={() => setIsMenuOpen(false)}
+						>
 							Contact
 						</Link>
 					</div>
 				</div>
-			</nav>
+			)}
 		</header>
 	);
 }

@@ -2,7 +2,6 @@ import { getPosts, getTagsByIds, getCategoriesByIds, extractFeaturedMedia } from
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
-import { Header } from "@/components/header";
 
 export default async function Home() {
 	const postsResponse = await getPosts();
@@ -26,25 +25,22 @@ export default async function Home() {
 	);
 
 	return (
-		<>
-			<Header />
-			<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+		<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
 
-				<ul className="space-y-12">
-					{postsWithTerms.map((post: EnrichedPost) => (
-						<li key={post.id}>
-							<PostCard post={post} />
-						</li>
-					))}
-				</ul>
+			<ul className="space-y-12">
+				{postsWithTerms.map((post: EnrichedPost) => (
+					<li key={post.id}>
+						<PostCard post={post} />
+					</li>
+				))}
+			</ul>
 
-				<Pagination 
-					currentPage={1} 
-					totalPages={postsResponse.totalPages}
-					accentColor="purple"
-				/>
-			</main>
-		</>
+			<Pagination 
+				currentPage={1} 
+				totalPages={postsResponse.totalPages}
+				accentColor="purple"
+			/>
+		</main>
 	);
 }
 

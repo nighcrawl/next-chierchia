@@ -3,7 +3,6 @@ import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
 import { notFound } from "next/navigation";
-import { Header } from "@/components/header";
 
 interface PageProps {
 	params: Promise<{
@@ -46,11 +45,9 @@ export default async function PaginatedPage({ params }: PageProps) {
 	);
 
 	return (
-		<>
-			<Header />
-			<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+		<main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
 
-				<ul className="space-y-12">
+			<ul className="space-y-12">
 					{postsWithTerms.map((post: EnrichedPost) => (
 						<li key={post.id}>
 							<PostCard post={post} />
@@ -64,8 +61,7 @@ export default async function PaginatedPage({ params }: PageProps) {
 					accentColor="purple"
 				/>
 			</main>
-		</>
-	);
+		);
 }
 
 // Métadonnées pour le SEO

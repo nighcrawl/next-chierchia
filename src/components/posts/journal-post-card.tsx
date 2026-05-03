@@ -7,28 +7,22 @@ import Link from "next/link";
 
 export function JournalPostCard({ post, theme }: PostCardSharedProps) {
   return (
-    <article className={`rounded-lg overflow-hidden post-type post-type-journal ${theme.card}`}>
-      {post.featuredMediaObject && (
-          <FeaturedImage 
-              featuredMedia={post.featuredMediaObject}
-              size="full"
-              className="w-full h-full"
-          />
-      )}
-      <div className="p-6">
-        <PostType post={post} theme={theme} />
-        <Link href={getPostUrl(post)}>
-          <h2
-            className={`my-4 text-2xl font-bold tracking ${theme.label} hover:underline cursor-pointer`}
-            dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-          />
-        </Link>
-
-        <div
-          className="mt-3 space-y-4 text-base"
+    <article className="py-6 border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+      <div className="space-y-3">
+        <div className="space-y-2">
+          <PostType post={post} theme={theme} />
+          <h2 className="text-2xl leading-8 font-bold tracking-tight">
+            <Link 
+              href={getPostUrl(post)}
+              className="text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-500 transition-colors"
+              dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+            />
+          </h2>
+        </div>
+        <div 
+          className="prose max-w-none text-gray-500 dark:text-gray-400"
           dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
         />
-
         <PostMeta post={post} theme={theme} />
       </div>
     </article>
