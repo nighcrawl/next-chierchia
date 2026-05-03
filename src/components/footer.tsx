@@ -9,21 +9,21 @@ interface Tag {
   count: number;
 }
 
+// Tags par défaut pour éviter une section vide
+const defaultTags: Tag[] = [
+  { name: "JavaScript", count: 0 },
+  { name: "React", count: 0 },
+  { name: "Next.js", count: 0 },
+  { name: "WordPress", count: 0 },
+  { name: "TypeScript", count: 0 },
+  { name: "Web Development", count: 0 },
+  { name: "Full Stack", count: 0 },
+  { name: "Node.js", count: 0 }
+];
+
 export function Footer() {
   const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
-
-  // Tags par défaut pour éviter une section vide
-  const defaultTags: Tag[] = [
-    { name: "JavaScript", count: 0 },
-    { name: "React", count: 0 },
-    { name: "Next.js", count: 0 },
-    { name: "WordPress", count: 0 },
-    { name: "TypeScript", count: 0 },
-    { name: "Web Development", count: 0 },
-    { name: "Full Stack", count: 0 },
-    { name: "Node.js", count: 0 }
-  ];
 
   useEffect(() => {
     // Récupérer tous les tags depuis WordPress
