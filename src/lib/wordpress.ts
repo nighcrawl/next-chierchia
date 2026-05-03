@@ -1,9 +1,9 @@
 import type { WordPressPage, WordPressPost, WordPressTerm, PaginatedPostsResponse, WordPressFeaturedMedia } from "./wordpress-types";
 
-const API_BASE = process.env.NEXT_PUBLIC_WORDPRESS_URL;
+const API_BASE = process.env.WORDPRESS_API_BASE;
 
 if (!API_BASE) {
-    throw new Error("NEXT_PUBLIC_WORDPRESS_URL is not defined");
+    throw new Error("WORDPRESS_API_BASE is not defined");
 }
 
 type QueryParams = Record<string, string | number | boolean | undefined>;

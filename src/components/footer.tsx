@@ -29,7 +29,7 @@ export function Footer() {
     // Récupérer tous les tags depuis WordPress
     const fetchTags = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/tags?per_page=100`);
+        const response = await fetch(`${process.env.WORDPRESS_API_BASE}/tags?per_page=100`);
         if (response.ok) {
           const tagsData = await response.json();
           // Filtrer les tags utilisés et trier par count
