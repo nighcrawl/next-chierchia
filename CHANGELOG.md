@@ -1,3 +1,19 @@
+# [1.1.0](https://github.com/nighcrawl/next-chierchia/compare/v1.0.0...v1.1.0) (2026-05-02)
+
+
+### Bug Fixes
+
+* resolve ESLint errors and warnings ([7be1c78](https://github.com/nighcrawl/next-chierchia/commit/7be1c78985ae7dde625ed1643b6e297ed8517641))
+
+
+### Features
+
+* add featured image on post cards ([1ac168a](https://github.com/nighcrawl/next-chierchia/commit/1ac168acb4fa3db2482791ae7f8cebf0e21ec997))
+* add link to home on site name ([74a6355](https://github.com/nighcrawl/next-chierchia/commit/74a63553433a6318ef16f4c5d3d0445cae8d25ef))
+* add navigation menu with WordPress pages ([636d2f3](https://github.com/nighcrawl/next-chierchia/commit/636d2f39ee492a032ca7d57dabd74b70356210c1))
+* add taxonomy routes with pagination and clickable tags ([4fb9733](https://github.com/nighcrawl/next-chierchia/commit/4fb9733b4a0864fa7a1172d91c4e0d9ede40c456))
+* **posts:** add themed styles for different post types ([132361a](https://github.com/nighcrawl/next-chierchia/commit/132361ad04088369e43d7f48b0ce71f3577d5092))
+
 # 1.0.0 (2026-04-26)
 
 
