@@ -1,5 +1,4 @@
 import { PostMeta } from "@/components/posts/post-meta";
-import { FeaturedImage } from "@/components/posts/featured-image";
 import type { PostCardSharedProps } from "./post-card";
 import { PostType } from "./post-type";
 import { getPostUrl } from "@/lib/post-urls";

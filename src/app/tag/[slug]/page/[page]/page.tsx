@@ -1,5 +1,4 @@
 import { getPostsByTag, getTagBySlug, getTagsByIds, getCategoriesByIds, extractFeaturedMedia } from "@/lib/wordpress";
-import { WordPressPost, WordPressTerm } from "@/lib/wordpress-types";
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
@@ -52,7 +51,7 @@ export default async function TagPage({ params }: TagPageProps) {
             <Header />
             <header className="mb-10">
                 <Link href="/" className="text-sm text-zinc-600 hover:text-zinc-900">
-                    ← Retour à l'accueil
+                    ← Retour à l&apos;accueil
                 </Link>
                 <h1 className="mt-4 text-4xl font-bold tracking-tight">
                     Tag: #{tag.name}

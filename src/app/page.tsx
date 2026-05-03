@@ -1,14 +1,8 @@
 import { getPosts, getTagsByIds, getCategoriesByIds, extractFeaturedMedia } from "@/lib/wordpress";
-import { WordPressPost, WordPressTerm } from "@/lib/wordpress-types";
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
 import { Header } from "@/components/header";
-
-type PostWithTerms = WordPressPost & {
-	tagObjects: WordPressTerm[];
-	categoryObjects: WordPressTerm[];
-};
 
 export default async function Home() {
 	const postsResponse = await getPosts();

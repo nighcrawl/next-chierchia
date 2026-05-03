@@ -1,15 +1,9 @@
 import { getPosts, getTagsByIds, getCategoriesByIds, extractFeaturedMedia } from "@/lib/wordpress";
-import { WordPressPost, WordPressTerm } from "@/lib/wordpress-types";
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/header";
-
-type PostWithTerms = WordPressPost & {
-	tagObjects: WordPressTerm[];
-	categoryObjects: WordPressTerm[];
-};
 
 interface PageProps {
 	params: Promise<{
