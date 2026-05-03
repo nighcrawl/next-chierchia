@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/nighcrawl/next-chierchia/compare/v1.3.0...v1.3.1) (2026-05-03)
+
+
+### Bug Fixes
+
+* resolve WordPress API undefined error in footer ([105dbd1](https://github.com/nighcrawl/next-chierchia/commit/105dbd1a99b28c5998710cd09c73e3fb69dafa7c))
+
 # [1.3.0](https://github.com/nighcrawl/next-chierchia/compare/v1.2.1...v1.3.0) (2026-05-03)
 
 
