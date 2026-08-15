@@ -1,6 +1,8 @@
 import { getPostBySlug, extractFeaturedMedia } from "@/lib/wordpress";
 import { notFound } from "next/navigation";
 import { FeaturedImage } from "@/components/posts/featured-image";
+import { PostContent } from "@/components/posts/post-content";
+import { hasBlockshifterCarousel, getBlockshifterCarouselAssets } from "@/lib/blockshifter";
 
 type PostPageParams = {
   year: string;
@@ -29,11 +31,15 @@ export default async function PostPage({ params }: {
   const postYear = postDate.getFullYear().toString();
   const postMonth = (postDate.getMonth() + 1).toString().padStart(2, '0');
   
-  if (year !== postYear || 
+  if (year !== postYear ||
       month !== postMonth) {
     notFound();
   }
-  
+
+  const blockshifterAssets = hasBlockshifterCarousel(post.content.rendered)
+    ? getBlockshifterCarouselAssets()
+    : null;
+
   return (
     <>
       <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
@@ -65,10 +71,7 @@ export default async function PostPage({ params }: {
             </div>
           </header>
           
-          <div 
-            className="prose prose-zinc max-w-none"
-            dangerouslySetInnerHTML={{ __html: post.content.rendered }}
-          />
+          <PostContent post={post} blockshifterAssets={blockshifterAssets} />
         </article>
       </main>
     </>

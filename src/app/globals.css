@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Le carousel Blockshifter ne laisse qu'un seul enfant (.splide__track) dans
+   le bloc gallery/group transformé ; le display:grid/flex hérité de
+   wp-block-styles pour is-layout-flex traite alors ce conteneur comme un item
+   de grille et le limite à une seule colonne au lieu de la pleine largeur. */
+.wp-block-gallery.splide,
+.wp-block-group.splide {
+    display: block !important;
+}
+
 body {
     font-family: var(--font-geist-sans);
 }
