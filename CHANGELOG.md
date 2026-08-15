@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/nighcrawl/next-chierchia/compare/v1.3.1...v1.4.0) (2026-08-15)
+
+
+### Features
+
+* load Blockshifter carousel assets on headless post pages ([2121d05](https://github.com/nighcrawl/next-chierchia/commit/2121d05f055a06bb9d115dba7d13a6dd8aa6ad03))
+
 ## [1.3.1](https://github.com/nighcrawl/next-chierchia/compare/v1.3.0...v1.3.1) (2026-05-03)
 
 
