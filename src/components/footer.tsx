@@ -50,9 +50,9 @@ export async function Footer() {
               Ange Chierchia
             </h3>
             <p className="text-gray-600 dark:text-gray-300 text-sm">
-              Développeur Web full-stack passionné par les technologies modernes 
-              et les architectures headless. Ce blog partage mes réflexions, 
-              découvertes et expériences techniques.
+              Développeur web au Luxembourg depuis 2010. Ado, je codais
+              un fansite Star Wars, c&apos;est resté. Ici je publie un
+              peu tout ce qui me passe par la tête.
             </p>
           </div>
 
