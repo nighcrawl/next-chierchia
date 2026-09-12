@@ -1,3 +1,18 @@
+# [1.5.0](https://github.com/nighcrawl/next-chierchia/compare/v1.4.0...v1.5.0) (2026-09-12)
+
+
+### Bug Fixes
+
+* point CI build to content.chierchia.fr WordPress API host ([97b612c](https://github.com/nighcrawl/next-chierchia/commit/97b612cbffaf815c180855186c5aead592705c97))
+* point header avatar to content.chierchia.fr media host ([52dff0d](https://github.com/nighcrawl/next-chierchia/commit/52dff0d57895a10642465f2a60329320d0d23925))
+* throttle static generation concurrency to avoid WordPress 500s ([a157161](https://github.com/nighcrawl/next-chierchia/commit/a157161a7d91c41524d0adbf85abadbf0b457926))
+
+
+### Features
+
+* add SEO metadata, sitemap, robots, RSS feed and webmentions ([d322234](https://github.com/nighcrawl/next-chierchia/commit/d3222341f7026d8b383058bf51b213dd3fe3bff3))
+* rewrite footer intro text with a more personal tone ([083b2bf](https://github.com/nighcrawl/next-chierchia/commit/083b2bfa94b948846362ad46231cc32f6c181170))
+
 # [1.4.0](https://github.com/nighcrawl/next-chierchia/compare/v1.3.1...v1.4.0) (2026-08-15)
 
 
