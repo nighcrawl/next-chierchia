@@ -1,4 +1,4 @@
-import type { WordPressPage, WordPressPost, WordPressTerm, PaginatedPostsResponse, WordPressFeaturedMedia } from "./wordpress-types";
+import type { WordPressPage, WordPressPost, WordPressTerm, WordPressComment, PaginatedPostsResponse, WordPressFeaturedMedia } from "./wordpress-types";
 
 const API_BASE = process.env.WORDPRESS_API_BASE;
 
@@ -22,23 +22,39 @@ function buildUrl(endpoint: string, params?: QueryParams) {
     return url.toString();
 }
 
+const MAX_ATTEMPTS = 3;
+
+function wait(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function wpFetch<T>(endpoint: string, params?: QueryParams): Promise<{ data: T; headers: Headers }> {
     const url = buildUrl(endpoint, params);
 
-    const response = await fetch(url, {
-        next: { revalidate: 300 },
-    });
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+        // Le mutualisé OVH derrière l'API renvoie de temps en temps une 500
+        // transitoire sous charge ; on retente avant d'abandonner. Le WAF bloque
+        // aussi les requêtes sans User-Agent de navigateur.
+        const response = await fetch(url, {
+            next: { revalidate: 300 },
+            headers: {
+                "User-Agent": "Mozilla/5.0 (compatible; next-chierchia)",
+            },
+        });
 
-    if (!response.ok) {
-        throw new Error(`WordPress API error: ${response.status} on ${url}`);
+        if (response.ok) {
+            const data = await response.json() as T;
+            return { data, headers: response.headers };
+        }
+
+        if (response.status < 500 || attempt === MAX_ATTEMPTS) {
+            throw new Error(`WordPress API error: ${response.status} on ${url}`);
+        }
+
+        await wait(attempt * 1000);
     }
 
-    const data = await response.json() as T;
-    
-    return {
-        data,
-        headers: response.headers,
-    };
+    throw new Error(`WordPress API error: unreachable on ${url}`);
 }
 
 export async function getPosts(page: number = 1, perPage: number = 10): Promise<PaginatedPostsResponse> {
@@ -206,6 +222,29 @@ export async function getPostsByCategory(categoryId: number, page: number = 1, p
         total,
         totalPages,
     };
+}
+
+export async function getAllPosts(): Promise<WordPressPost[]> {
+    const allPosts: WordPressPost[] = [];
+    let page = 1;
+    let totalPages = 1;
+
+    do {
+        const { posts, totalPages: pages } = await getPosts(page, 100);
+        allPosts.push(...posts);
+        totalPages = pages;
+        page++;
+    } while (page <= totalPages);
+
+    return allPosts;
+}
+
+export async function getCommentsByPostId(postId: number): Promise<WordPressComment[]> {
+    const { data: comments } = await wpFetch<WordPressComment[]>("comments", {
+        post: postId,
+        per_page: 100,
+    });
+    return comments;
 }
 
 export function extractFeaturedMedia(post: WordPressPost): WordPressFeaturedMedia | undefined {

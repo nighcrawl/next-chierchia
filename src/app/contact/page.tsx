@@ -1,4 +1,5 @@
 import { getPageBySlug } from "@/lib/wordpress";
+import { yoastToMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
 export default async function ContactPage() {
@@ -31,11 +32,9 @@ export async function generateMetadata() {
 		};
 	}
 
-	return {
+	return yoastToMetadata(page.yoast_head_json, {
 		title: `${page.title.rendered} - Ange Chierchia`,
 		description: page.excerpt.rendered.replace(/<[^>]*>/g, '').trim() || "Contactez Ange Chierchia",
-		alternates: {
-			canonical: "/contact",
-		},
-	};
+		canonical: "/contact",
+	});
 }

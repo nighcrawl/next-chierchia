@@ -1,4 +1,5 @@
 import { getPostsByCategory, getCategoryBySlug, getTagsByIds, getCategoriesByIds, extractFeaturedMedia } from "@/lib/wordpress";
+import { yoastToMetadata } from "@/lib/seo";
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
@@ -11,6 +12,9 @@ interface CategoryPageProps {
         page: string;
     }>;
 }
+
+// Pas de pré-génération : la pagination profonde est peu visitée, rendue à la
+// demande via ISR (dynamicParams) pour ne pas surcharger l'API au build.
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
     const resolvedParams = await params;
@@ -96,11 +100,9 @@ export async function generateMetadata({ params }: CategoryPageProps) {
         };
     }
 
-    return {
+    return yoastToMetadata(category.yoast_head_json, {
         title: `Catégorie: ${category.name} - Ange Chierchia`,
         description: category.description || `Découvrez tous les posts dans la catégorie ${category.name}`,
-        alternates: {
-            canonical: `/category/${resolvedParams.slug}`,
-        },
-    };
+        canonical: `/category/${resolvedParams.slug}`,
+    });
 }

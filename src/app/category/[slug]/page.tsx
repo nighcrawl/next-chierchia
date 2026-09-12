@@ -1,4 +1,5 @@
-import { getPostsByCategory, getCategoryBySlug, getTagsByIds, getCategoriesByIds, extractFeaturedMedia } from "@/lib/wordpress";
+import { getPostsByCategory, getCategoryBySlug, getCategories, getTagsByIds, getCategoriesByIds, extractFeaturedMedia } from "@/lib/wordpress";
+import { yoastToMetadata } from "@/lib/seo";
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
@@ -9,17 +10,18 @@ interface CategoryPageProps {
     params: Promise<{
         slug: string;
     }>;
-    searchParams: Promise<{
-        page?: string;
-    }>;
 }
 
-export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
+export async function generateStaticParams() {
+    const categories = await getCategories();
+    return categories.map((category) => ({ slug: category.slug }));
+}
+
+export default async function CategoryPage({ params }: CategoryPageProps) {
     const resolvedParams = await params;
-    const resolvedSearchParams = await searchParams;
-    
+
     const { slug } = resolvedParams;
-    const currentPage = parseInt(resolvedSearchParams.page || "1", 10);
+    const currentPage = 1;
 
     // Récupérer les informations de la catégorie
     const category = await getCategoryBySlug(slug);
@@ -100,11 +102,9 @@ export async function generateMetadata({ params }: CategoryPageProps) {
         };
     }
 
-    return {
+    return yoastToMetadata(category.yoast_head_json, {
         title: `Catégorie: ${category.name} - Ange Chierchia`,
         description: category.description || `Découvrez tous les posts dans la catégorie ${category.name}`,
-        alternates: {
-            canonical: `/category/${resolvedParams.slug}`,
-        },
-    };
+        canonical: `/category/${resolvedParams.slug}`,
+    });
 }

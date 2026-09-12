@@ -26,6 +26,20 @@ export type WordPressEmbedded = {
     "wp:featuredmedia"?: WordPressFeaturedMedia[];
 };
 
+export type YoastHeadJson = {
+    title?: string;
+    og_title?: string;
+    og_description?: string;
+    og_site_name?: string;
+    og_locale?: string;
+    og_type?: string;
+    og_image?: { url: string; width?: number; height?: number; type?: string }[];
+    twitter_card?: string;
+    twitter_site?: string;
+    twitter_creator?: string;
+    robots?: { index?: string; follow?: string };
+};
+
 export type WordPressPost = {
     id: number;
     slug: string;
@@ -38,6 +52,7 @@ export type WordPressPost = {
     categories: number[];
     tags: number[];
     _embedded?: WordPressEmbedded;
+    yoast_head_json?: YoastHeadJson;
 };
 
 export type WordPressPage = {
@@ -48,6 +63,7 @@ export type WordPressPage = {
     title: RenderedField;
     excerpt: RenderedField;
     content: RenderedField;
+    yoast_head_json?: YoastHeadJson;
 };
 
 export type WordPressTerm = {
@@ -56,6 +72,18 @@ export type WordPressTerm = {
     slug: string;
     description: string;
     count: number;
+    yoast_head_json?: YoastHeadJson;
+};
+
+export type WordPressComment = {
+    id: number;
+    post: number;
+    author_name: string;
+    author_url: string;
+    date: string;
+    content: RenderedField;
+    author_avatar_urls?: Record<string, string>;
+    meta?: { protocol?: string };
 };
 
 export type PaginatedPostsResponse = {

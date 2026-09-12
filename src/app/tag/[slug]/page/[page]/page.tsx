@@ -1,4 +1,5 @@
 import { getPostsByTag, getTagBySlug, getTagsByIds, getCategoriesByIds, extractFeaturedMedia } from "@/lib/wordpress";
+import { yoastToMetadata } from "@/lib/seo";
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
@@ -11,6 +12,9 @@ interface TagPageProps {
         page: string;
     }>;
 }
+
+// Pas de pré-génération : la pagination profonde est peu visitée, rendue à la
+// demande via ISR (dynamicParams) pour ne pas surcharger l'API au build.
 
 export default async function TagPage({ params }: TagPageProps) {
     const resolvedParams = await params;
@@ -93,11 +97,9 @@ export async function generateMetadata({ params }: TagPageProps) {
         };
     }
 
-    return {
+    return yoastToMetadata(tag.yoast_head_json, {
         title: `Tag: #${tag.name} - Ange Chierchia`,
         description: tag.description || `Découvrez tous les posts avec le tag ${tag.name}`,
-        alternates: {
-            canonical: `/tag/${resolvedParams.slug}`,
-        },
-    };
+        canonical: `/tag/${resolvedParams.slug}`,
+    });
 }

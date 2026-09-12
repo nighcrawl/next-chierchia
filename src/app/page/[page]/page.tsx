@@ -10,6 +10,13 @@ interface PageProps {
 	}>;
 }
 
+export async function generateStaticParams() {
+	const { totalPages } = await getPosts(1, 10);
+	return Array.from({ length: Math.max(totalPages - 1, 0) }, (_, i) => ({
+		page: String(i + 2),
+	}));
+}
+
 export default async function PaginatedPage({ params }: PageProps) {
 	const { page: pageParam } = await params;
 	const pageNumber = parseInt(pageParam, 10);

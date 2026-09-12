@@ -1,0 +1,10 @@
+[[redirects]]
+  from = "/cv"
+  to = "/cv/"
+  status = 301
+
+[[redirects]]
+  from = "/cv/*"
+  to = "https://cv.chierchia.fr/:splat"
+  status = 200
+  force = true

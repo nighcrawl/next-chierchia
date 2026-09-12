@@ -1,4 +1,5 @@
 import { getPostsByTag, getTagBySlug, getTagsByIds, getCategoriesByIds, extractFeaturedMedia } from "@/lib/wordpress";
+import { yoastToMetadata } from "@/lib/seo";
 import { PostCard } from "@/components/posts/post-card";
 import { Pagination } from "@/components/pagination";
 import { EnrichedPost } from "@/lib/post-types";
@@ -9,17 +10,16 @@ interface TagPageProps {
     params: Promise<{
         slug: string;
     }>;
-    searchParams: Promise<{
-        page?: string;
-    }>;
 }
 
-export default async function TagPage({ params, searchParams }: TagPageProps) {
+// Pas de pré-génération : ~90 tags rendraient le build fragile face au mutualisé
+// WP ; ISR (dynamicParams) génère chaque page de tag à la demande.
+
+export default async function TagPage({ params }: TagPageProps) {
     const resolvedParams = await params;
-    const resolvedSearchParams = await searchParams;
-    
+
     const { slug } = resolvedParams;
-    const currentPage = parseInt(resolvedSearchParams.page || "1", 10);
+    const currentPage = 1;
 
     // Récupérer les informations du tag
     const tag = await getTagBySlug(slug);
@@ -97,11 +97,9 @@ export async function generateMetadata({ params }: TagPageProps) {
         };
     }
 
-    return {
+    return yoastToMetadata(tag.yoast_head_json, {
         title: `Tag: ${tag.name} - Ange Chierchia`,
         description: tag.description || `Découvrez tous les posts avec le tag ${tag.name}`,
-        alternates: {
-            canonical: `/tag/${resolvedParams.slug}`,
-        },
-    };
+        canonical: `/tag/${resolvedParams.slug}`,
+    });
 }

@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+	metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://chierchia.fr"),
 	title: "Ange Chierchia - Développeur Web full-stack",
 	description: "Blog personnel d'Ange Chierchia, développeur Web full-stack. Partage de réflexions, découvertes et expériences techniques.",
 };
