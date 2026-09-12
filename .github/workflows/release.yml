@@ -38,11 +38,11 @@ jobs:
 
       - name: Build
         env:
-          WORDPRESS_API_BASE: https://chierchia.fr/wp-json/wp/v2
+          WORDPRESS_API_BASE: https://content.chierchia.fr/wp-json/wp/v2
         run: npm run build --if-present
 
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WORDPRESS_API_BASE: https://chierchia.fr/wp-json/wp/v2
+          WORDPRESS_API_BASE: https://content.chierchia.fr/wp-json/wp/v2
         run: npx semantic-release
