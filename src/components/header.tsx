@@ -18,7 +18,7 @@ export function Header() {
 				<Link href="/" className="flex items-center space-x-4" aria-label="Ange Chierchia - Accueil">
 					<div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
 						<Image
-							src="https://chierchia.fr/wp-content/uploads/cropped-16350293-SSDKVqo3-150x150.jpg"
+							src="https://content.chierchia.fr/wp-content/uploads/cropped-16350293-SSDKVqo3-150x150.jpg"
 							alt="Ange Chierchia"
 							width={48}
 							height={48}
